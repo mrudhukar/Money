@@ -25,6 +25,7 @@ gem 'jquery-rails'
 # Deploy with Capistrano
 # gem 'capistrano'
 gem 'authlogic'
+gem 'will_paginate', '~> 3.0.0'
 
 group :development, :test do
   gem 'ruby-debug19', :require => 'ruby-debug'
