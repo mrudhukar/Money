@@ -10,8 +10,9 @@ Money::Application.routes.draw do
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
 
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+  resources :user_sessions, :users, :items
+  match 'login' => 'user_sessions#new', :as => :login
+  match 'logout' => 'user_sessions#destroy', :as => :logout
 
   # Sample resource route with options:
   #   resources :products do
@@ -25,11 +26,9 @@ Money::Application.routes.draw do
   #     end
   #   end
 
-  # Sample resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
+  resources :groups do
+   resources :commen_items, :group_users
+  end
 
   # Sample resource route with more complex sub-resources
   #   resources :products do
@@ -48,7 +47,7 @@ Money::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'groups#index'
 
   # See how all your routes lay out with "rake routes"
 
