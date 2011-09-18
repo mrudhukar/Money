@@ -10,7 +10,8 @@ class UserSessionsController < ApplicationController
     if @user_session.save
       redirect_to session[:orginal_uri] || root_url
     else
-      render :action => "new"
+      flash[:error] = "Login failed. Please try again"
+      redirect_to login_path
     end
   end
 
