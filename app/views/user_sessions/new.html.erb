@@ -6,7 +6,7 @@
   If you are not an existing user <%= link_to("click here", new_user_path) %> to register
 </span>
 
-<%= form_for @user_session do |f| %>
+<%= form_for @user_session, :html => {:class => "wall"} do |f| %>
   <div class='field clearfix'>
     <%= f.label :email %>
     <%= f.text_field :email %>

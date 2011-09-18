@@ -1,4 +1,19 @@
 module ApplicationHelper
+  FLASHMAP = {
+    :notice => "success",
+    :error => "error",
+    :alert => "warning"
+  }
+
+  def render_flash
+    message = flash[:notice] || flash[:error] || flash[:alert]
+    key = FLASHMAP[flash.keys[0]]
+    if message
+      content_tag(:div, :class => "alert-message #{key}") do
+        link_to("x", "#", :class => "close") + content_tag(:p, message)
+      end
+    end
+  end
 
   def user_transaction_partners(group_user)
     pay_structure = PaySuggestions::PaySystem.create(group_user.group)
