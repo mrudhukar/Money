@@ -1,5 +1,5 @@
-<% @title = "#{@user.name}" %>
-<% @page_action = link_to("Edit profile", edit_user_path(@user)) if (current_user == @user || current_user.app_admin?) %>
+<% @title = "Welcome #{@user.name}" %>
+<% @page_action = {:name => "Edit profile", :url => edit_user_path(@user)} if (current_user == @user || current_user.app_admin?) %>
 
 <div id="user_show">
   <div>

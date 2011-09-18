@@ -15,6 +15,21 @@ module ApplicationHelper
     end
   end
 
+  def render_tab(name, url)
+    css_class = @tab == name ? "active" : ""
+    content_tag(:li, :class => css_class) do
+      link_to(name, url)
+    end
+  end
+
+  def action_set(options = {}, &block)
+    action_code = capture(&block)
+    action_code_with_wrapper = content_tag(:div, :class => "actions") do
+      action_code
+    end
+    concat(action_code_with_wrapper)
+  end
+
   def user_transaction_partners(group_user)
     pay_structure = PaySuggestions::PaySystem.create(group_user.group)
     payer = pay_structure.users[group_user.id]
@@ -27,11 +42,12 @@ module ApplicationHelper
     trans.keys.each do |trans_user|
       user_name = GroupUser.find(trans_user).user.name
       string += content_tag(:span, :class => "trans_user") do
+        raw(
         if group_user.balance > 0
           "Pay Rs. #{trans[trans_user]} to <b> #{user_name} </b>"
         else
           "Get Rs. #{trans[trans_user]} from <b> #{user_name} </b>"
-        end
+        end)
       end
       string += "<br>"
     end

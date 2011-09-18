@@ -1,0 +1,19 @@
+<% if @breadcrumbs %>
+  <ul class="breadcrumb">
+    <li><a href="#">Home</a> <span class="divider">/</span></li>
+    <li><a href="#">Middle page</a> <span class="divider">/</span></li>
+    <li><a href="#">Another one</a> <span class="divider">/</span></li>
+    <li class="active">You are here</li>
+  </ul>
+<% end %>
+
+<div class="inner_header row">
+  <% if @title %>
+    <h2 class="span12"><%= @title %></h2>
+  <% end %>
+  <% if @page_action %>
+    <div class="span4">
+      <%= link_to(@page_action[:name] , @page_action[:url], :class => "btn large primary") %>
+    </div>
+  <% end %>
+</div>

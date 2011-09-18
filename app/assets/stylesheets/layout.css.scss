@@ -1,3 +1,20 @@
+@import "mixins.css.scss";
+
 .inner_content{
   padding-top: 10px;
+
+  .inner_header {
+    margin-bottom: 20px;
+    .span4 {
+      a.primary {
+        float: right;
+      }
+    }
+  }
+}
+
+.topbar-wrapper{
+  .dropdown-menu.groups{
+    width: 500px;
+  }
 }

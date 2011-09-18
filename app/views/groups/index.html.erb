@@ -1,5 +1,5 @@
 <% @title = "My Groups" %>
-<% @page_action = link_to("Create new group", new_group_path) %>
+<% @page_action = {:name => "Create new group", :url => new_group_path} %>
 
 <div id="groups">
   <% unless @groups.count > 0 %>

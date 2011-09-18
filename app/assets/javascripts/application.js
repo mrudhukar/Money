@@ -8,3 +8,10 @@
 //= require jquery_ujs
 //= require bootstrap-dropdown
 //= require_tree .
+
+$(document).ready(function(){
+
+    $("a.close").bind("click", function (e) {
+        $(this).parent("div.alert-message").hide();
+    });
+})

@@ -2,8 +2,7 @@
 <div id="new_common_items">
   <fieldset>
     <legend>Enter Item Details</legend>
-    <% form_for([:group, @common_item]) do |f| %>
-      <%= f.error_messages %>
+    <%= form_for([:group, @common_item]) do |f| %>
       <div class="label_item">
         <%= f.label :name %>
         <%= f.text_field :name, :size => 40 %>

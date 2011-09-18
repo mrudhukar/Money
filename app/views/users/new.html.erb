@@ -1,10 +1,5 @@
 <% @title = "Register as new uesr" %>
-<% @page_action = link_to("Sign in", login_path) %>
-
-<div id="new_user">
-<span>
-  If you are already an existing user <%= link_to("click here", login_path) %> to login
-</span>
+<% @page_action = {:name => "Sign in", :url => login_path} %>
 
 <%= form_for @user do |f| %>
   <p>
@@ -34,4 +29,3 @@
     <%= f.submit "Submit", :class => "button" %>
   </p>
 <% end %>
-</div>

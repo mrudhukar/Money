@@ -1,5 +1,5 @@
 <% @title = "Edit Profile" %>
-<% @page_action = link_to("View profile", user_path(current_user)) %>
+<% @page_action = {:name => "View profile", :url => user_path(current_user)} %>
 
 <div id="edit_user">
 

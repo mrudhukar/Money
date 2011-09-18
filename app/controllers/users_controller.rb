@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   allow :exec => :authorize_user, :only => [:edit, :update]
 
   def new
+    @tab = TabConstants::REGISTER
     if params[:group_code]
       @group = Group.find_by_code(params[:group_code])
       handle_invalid_code
@@ -40,7 +41,7 @@ class UsersController < ApplicationController
   end
 
   def show
-
+    @tab = TabConstants::HOME
   end
 
   def index

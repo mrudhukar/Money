@@ -27,7 +27,8 @@ Money::Application.routes.draw do
   #   end
 
   resources :groups do
-   resources :commen_items, :group_users
+   resources :common_items
+   resources :group_users
   end
 
   # Sample resource route with more complex sub-resources

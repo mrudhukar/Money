@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110917083521) do
+ActiveRecord::Schema.define(:version => 20110917090704) do
+
+  create_table "common_items", :force => true do |t|
+    t.integer  "group_user_id"
+    t.string   "name"
+    t.string   "description"
+    t.integer  "cost",             :default => 0
+    t.date     "transaction_date"
+    t.integer  "transaction_type", :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "common_items", ["group_user_id"], :name => "index_common_items_on_group_user_id"
 
   create_table "group_users", :force => true do |t|
     t.integer  "user_id"
@@ -35,6 +48,16 @@ ActiveRecord::Schema.define(:version => 20110917083521) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "items", :force => true do |t|
+    t.integer  "common_item_id"
+    t.integer  "user_id",                       :null => false
+    t.integer  "default_amount", :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "items", ["user_id", "common_item_id"], :name => "index_items_on_user_id_and_common_item_id"
 
   create_table "users", :force => true do |t|
     t.string   "name",                                  :null => false

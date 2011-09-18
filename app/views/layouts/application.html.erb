@@ -11,9 +11,7 @@
   <div class="container">
     <%= render :partial => "common/header" %>
     <div class="inner_content">
-      <% if @title %>
-        <h2><%= @title %></h2>
-      <% end %>
+      <%= render :partial => "common/inner_header" %>
       <%= render_flash %>
 
       <%= yield %>
