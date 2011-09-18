@@ -1,0 +1,38 @@
+<% @title = @group.name %>
+<div id="new_common_items">
+  <fieldset>
+    <legend>Enter Item Details</legend>
+    <% form_for([:group, @common_item]) do |f| %>
+      <%= f.error_messages %>
+      <div class="label_item">
+        <%= f.label :name %>
+        <%= f.text_field :name, :size => 40 %>
+      </div>
+      <div class="label_item">
+        <label for="common_item_transaction_date">Transaction date:</label>
+        <%= calendar_input_tag(:common_item, :transaction_date, :form => f) %>
+      </div>
+      <div class="label_item">
+        <%= f.label :transaction_type %>
+        <%= f.select :transaction_type, TRANSACTION_TYPE_OPTIONS_ARRAY, {:selected => @common_item.transaction_type},
+          {:onchange => "CommonItem.typeChange('#{new_group_common_item_path(@group)}')", :id => "common_item_transaction_type"} %>
+        <span id="loading_image" style="display: none"><%= image_tag("ajax-loader.gif") %></span>
+      </div>
+      <div class="label_item">
+        <%= f.label :cost %>
+        <%= f.text_field :cost, :size => 5 %>
+      </div>
+      <div class="label_item">
+        <label for="common_item_users">Users:</label>
+        <div id="transaction_type">
+          <%= render :partial => "common_items/transaction_types_#{@common_item.transaction_type}" %>
+        </div>
+      </div>
+      
+      <div class="label_item">
+        <label style="visibility:hidden">.</label>
+        <%= f.submit "Create", :class => "button", :onclick => "return CommonItem.beforeSubmit()" %>&nbsp;&nbsp;or&nbsp;&nbsp;<%= link_to "Cancel", group_path(@group) %>
+      </div>
+    <% end %>
+  </fieldset>
+</div>

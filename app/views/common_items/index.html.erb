@@ -1,0 +1,54 @@
+<% @title = @group.name %>
+<% @page_action = link_to("Add new item", new_group_common_item_path(:group_id => @group.id)) %>
+
+<div id="group_show">
+  <%= render :partial => "groups/group_details" %>
+  <div style="overflow-x: scroll; margin-bottom: 20px;">
+    <span style="float:left;"><%= page_entries_info(@common_items,  :entry_name => 'items') %></span>
+    <span class="pagination_details"><%= will_paginate @common_items %></span>
+    <br>
+    <table id="common_items_table" border="1" rules="all">
+      <tr class="header">
+        <th>Item Name</th>
+        <th>Cost (paid by)</th>
+        <% @active_group_users.each do |g_user| %>
+          <th><%= g_user.name %></th>
+        <% end %>
+        <% if @suspended_group_users.any? %>
+          <th class="suspended"> Suspended Users </th>
+        <% end %>
+        <th class='date'>Transaction Date</th>
+      </tr>
+      <% @common_items.each do |common_item| %>
+        <tr class="<%= 'payment' if common_item.payment? %>">
+          <td>
+            <% if common_item.payment? %>
+              <span style="color: #337733">Payment made-</span>
+            <% end %>
+            <%= common_item.name %>&nbsp;&nbsp;<small><%= show_delete_link(common_item)%></small>
+          </td>
+          <td style="color:red;">Rs.<%= common_item.cost %> (<%= common_item.user.display_name %>)</td>
+          <% @active_group_users.each do |g_user| %>
+            <td><%= display_amount(g_user.user, common_item) %></td>
+          <% end %>
+          <% if @suspended_group_users.any? %>
+            <td class="suspended"> <%= display_amount_for_suspended_users(@suspended_group_users, common_item) %> </td>
+          <% end %>
+          <td><small><%= common_item.transaction_date.strftime('%b, %d %Y') %></small></td>
+        </tr>
+      <% end %>
+      <% if @is_full_view %>
+        <tr class="full_stats">
+          <td>Total expenditure</td>
+          <td>Rs.<%= @total_cost %></td>
+          <% @group.users.each do |user| %>
+            <td>Rs.<%= @group.get_group_user(user).items.collect(&:default_amount).sum %></td>
+          <% end %>
+          <td><small><%= Time.now.strftime('%b, %d %Y') %></small></td>
+        </tr>
+      <% end %>
+    </table>
+    <span style="float:right;"><%= will_paginate @common_items %></span>
+  </div>
+  <%= render :partial => "groups/admin_actions" %>
+</div>

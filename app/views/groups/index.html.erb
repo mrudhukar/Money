@@ -1,0 +1,43 @@
+<% @title = "My Groups" %>
+<% @page_action = link_to("Create new group", new_group_path) %>
+
+<div id="groups">
+  <% unless @groups.count > 0 %>
+    You have no groups yet
+  <% else %>
+    <div>
+      <% @groups.each do |group| %>
+        <div id="group_<%= group.id %>" class="group">
+          <div class='group_header clearfix'>
+            <h2><%= link_to group.name, group_path(group) %> </h2>
+            <%= link_to "Add new common item", new_group_common_item_path(group), :class => "button righted" %>
+          </div>
+          <div class='group_body clearfix'>
+          <%= render :partial => "groups/pay_suggestions", :locals => {:group_user => group.get_group_user(current_user), :full_view => false} %>
+          <table class='group_status'>
+            <tr class="head">
+              <th> Group members </th>
+              <th> Credit </th>
+              <% if current_user == group.admin %>
+                <th> Actions </th>
+              <% end %>
+            </tr>
+            <% group.group_users.each do |group_user| %>
+              <% if group_user.user == current_user %>
+                <% style = "background-color: #FFFF99" %>
+              <% elsif !group_user.active? %>
+                <% style = "color: #CCC; font-size: 0.9em" %>
+              <% end %>
+              <tr style="<%= style if style %>" >
+                <td> <%= group_user.user.name %> </td>
+                <td> Rs. <%= group_user.balance %> </td>
+                <td style="font-size: 0.8em"> <%= render_action_link(group_user, current_user) %> </td>
+              </tr>
+            <% end %>
+          </table>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

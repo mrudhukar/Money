@@ -1,0 +1,25 @@
+<% @title = "#{@user.name}" %>
+<% @page_action = link_to("Edit profile", edit_user_path(@user)) if (current_user == @user || current_user.app_admin?) %>
+
+<div id="user_show">
+  <div>
+  <%= label_tag "Name" %>
+  <%= @user.name %>
+  </div>
+  <div>
+  <%= label_tag "Nick Name" %>
+  <%= @user.nick_name || "<dim><i>Not specified</i></dim>"%>
+  </div>
+  <div>
+  <%= label_tag "Email" %>
+  <%= @user.email %>
+  </div>
+  <div>
+    <%= label_tag "Groups" %>
+    <ul class="clearfix">
+    <% @user.groups.each do |group| %>
+      <li class="groups_list"><%= link_to(group.name, group_path(group)) %></li>
+    <% end %>
+    </ul>
+  </div>
+</div>

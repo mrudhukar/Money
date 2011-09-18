@@ -1,0 +1,36 @@
+<% if group_user.group.group_users.count > 1 %>
+  <% if full_view %>
+    <% pay_structure = PaySuggestions::PaySystem.create(group_user.group) %>
+    <% receiver_group_users = GroupUser.find(pay_structure.receivers.keys) %>
+    <table border="1px solid #AAA" id="full_pay_details">
+      <tr>
+        <th class="label_names">
+          <span class="payer">Payers</span>
+          <span><dim>/</dim></span>
+          <span>Receivers</span>
+        </th>
+        <% receiver_group_users.each do |group_user| %>
+          <th> <span class="title"> <%= group_user.name %> </span> <small>(Rs.<%= group_user.balance %>)</small></th>
+        <% end %>
+      </tr>
+      <% pay_structure.payers.keys.each do |group_user| %>
+        <% payer = pay_structure.payers[group_user] %>
+        <tr>
+          <td> <span class="payer"><%= payer.group_user.name %> </span> <small>(Rs.<%= payer.group_user.balance %>)</small></td>
+          <% receiver_group_users.each do |group_user| %>
+            <td> <%= payer.transaction_partners[group_user] || "-" %> </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <% if group_user.balance != 0 %>
+      <div id="pay_structure" class="clearfix">
+        <h3 class='small_view'> Suggested transaction: </h3>
+        <div class="transactions">
+          <%= transaction_statement(group_user) %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
