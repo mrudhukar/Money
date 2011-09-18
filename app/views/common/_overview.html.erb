@@ -1,0 +1,19 @@
+<div id="overview">
+  <br>
+  <div id="overview_groups">
+    <% unless current_user.groups.count > 0 %>
+      You have no groups yet
+    <% else %>
+      <b>Groups:</b>
+      <ul>
+      <% current_user.groups.each do |group| %>
+        <li><%= link_to truncate(group.name, :length => 15), group_path(group) %> : Rs.<%= group.get_group_user(current_user).balance %> </li>
+      <% end %>
+      </ul>
+      <span id="overview_net_balance">
+        Your net balance is : &nbsp;Rs <%= current_user.net_balance %>
+      </span>
+    <% end %>
+  </div>
+</div>
+

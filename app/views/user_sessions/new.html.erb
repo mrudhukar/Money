@@ -1,0 +1,24 @@
+<% @title = "Login" %>
+<% @page_action = link_to("Register", new_user_path) %>
+
+<div id='login'>
+<span>
+  If you are not an existing user <%= link_to("click here", new_user_path) %> to register
+</span>
+
+<%= form_for @user_session do |f| %>
+  <div class='field clearfix'>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+  <div class='field clearfix'>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+  <div class='clearfix field'>
+    <label> &nbsp; </label>
+    <%= f.submit "Login", :class => "button" %>
+    <%= check_box_tag "user_session[remember_me]", @user_session.remember_me %> Remember me
+  </div>
+<% end %>
+</div>
