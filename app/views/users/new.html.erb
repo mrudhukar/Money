@@ -25,7 +25,7 @@
     <%= hidden_field_tag :group_code, @group.code %>
   </p>
   <% end %>
-  <p>
-    <%= f.submit "Submit", :class => "button" %>
-  </p>
+  <%= f.actions do %>
+    <%= f.submit "Submit" %>
+  <% end %>
 <% end %>

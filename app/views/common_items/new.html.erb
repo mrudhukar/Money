@@ -27,11 +27,10 @@
           <%= render :partial => "common_items/transaction_types_#{@common_item.transaction_type}" %>
         </div>
       </div>
-      
-      <div class="label_item">
-        <label style="visibility:hidden">.</label>
-        <%= f.submit "Create", :class => "button", :onclick => "return CommonItem.beforeSubmit()" %>&nbsp;&nbsp;or&nbsp;&nbsp;<%= link_to "Cancel", group_path(@group) %>
-      </div>
+
+      <%= f.actions do %>
+        <%= f.submit "Create", :onclick => "return CommonItem.beforeSubmit()" %>&nbsp;&nbsp;or&nbsp;&nbsp;<%= link_to "Cancel", group_path(@group) %>
+      <% end %>
     <% end %>
   </fieldset>
 </div>

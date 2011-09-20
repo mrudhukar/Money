@@ -12,8 +12,8 @@
       <%= f.text_area :description %>
     </p>
 
-    <p>
-      <%= f.submit "Submit", :class => "button" %> or <%= link_to "Cancel", groups_path %>
-    </p>
+    <%= f.actions do %>
+      <%= f.submit "Submit" %> or <%= link_to "Cancel", groups_path %>
+    <% end %>
   <% end %>
 </div>

@@ -27,8 +27,8 @@
       </ul>
     </div>
 
-    <% action_set do %>
-      <%= f.submit "Login", :class => "btn primary", :disable_with => "please wait.." %>
+    <%= f.actions do %>
+      <%= f.submit "Login" %>
     <% end %>
 
   </fieldset>
