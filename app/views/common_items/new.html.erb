@@ -3,10 +3,7 @@
   <fieldset>
     <legend>Enter Item Details</legend>
     <%= form_for([:group, @common_item]) do |f| %>
-      <div class="label_item">
-        <%= f.label :name %>
-        <%= f.text_field :name, :size => 40 %>
-      </div>
+      <%= f.text_field :name, :size => 40 %>
       <div class="label_item">
         <label for="common_item_transaction_date">Transaction date:</label>
         <%= calendar_input_tag(:common_item, :transaction_date, :form => f) %>
@@ -17,10 +14,7 @@
           {:onchange => "CommonItem.typeChange('#{new_group_common_item_path(@group)}')", :id => "common_item_transaction_type"} %>
         <span id="loading_image" style="display: none"><%= image_tag("ajax-loader.gif") %></span>
       </div>
-      <div class="label_item">
-        <%= f.label :cost %>
-        <%= f.text_field :cost, :size => 5 %>
-      </div>
+      <%= f.text_field :cost, :size => 5 %>
       <div class="label_item">
         <label for="common_item_users">Users:</label>
         <div id="transaction_type">

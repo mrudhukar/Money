@@ -2,28 +2,17 @@
 <% @page_action = {:name => "Sign in", :url => login_path} %>
 
 <%= form_for @user do |f| %>
-  <p>
-    <%= f.label :name %>
     <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :email %>
     <%= f.text_field :email %>
-  </p>
-  <p>
-    <%= f.label :password %>
     <%= f.password_field :password %>
-  </p>
-  <p>
-    <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation %>
-  </p>
   <% if @group %>
   <p>
     <%= label_tag "Group Name" %>
     <b> <%= @group.name %> </b>
     <%= hidden_field_tag :group_code, @group.code %>
   </p>
+
   <% end %>
   <%= f.actions do %>
     <%= f.submit "Submit" %>
