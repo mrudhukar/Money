@@ -8,11 +8,13 @@
             <%= render_tab(TabConstants::HOME, root_path) %>
             <li class="dropdown <%= 'active' if @tab == TabConstants::GROUPS %>">
               <%= link_to "My Groups", groups_path(), :class => "dropdown-toggle" %>
-              <ul class="dropdown-menu groups">
-                <% current_user.groups.each do |group| %>
-                  <li><%= link_to truncate(group.name), group_path(group) %> </li>
-                <% end %>
-              </ul>
+              <% if current_user.groups.any? %>
+                <ul class="dropdown-menu groups">
+                  <% current_user.groups.each do |group| %>
+                    <li><%= link_to truncate(group.name), group_path(group) %> </li>
+                  <% end %>
+                </ul>
+              <% end %>
             </li>
             <%= render_tab(TabConstants::ITEMS, items_path) %>
           </ul>
