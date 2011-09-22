@@ -1,31 +1,15 @@
 <% @title = "Edit Profile" %>
 <% @page_action = {:name => "View profile", :url => user_path(current_user)} %>
 
-<div id="edit_user">
-
-<%= form_for @user do |f| %>
-  <p>
-    <%= f.label :name %>
+<%= form_for @user, :validate => true do |f| %>
+  <fieldset>
     <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :nick_name %>
     <%= f.text_field :nick_name %>
-  </p>
-  <p>
-    <%= f.label :email %>
     <%= f.text_field :email %>
-  </p>
-  <p>
-    <%= f.label :password %>
     <%= f.password_field :password %>
-  </p>
-  <p>
-    <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation %>
-  </p>
   <%= f.actions do %>
     <%= f.submit "Save" %>
   <% end %>
+  </fieldset>
 <% end %>
-</div>

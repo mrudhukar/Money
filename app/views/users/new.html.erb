@@ -1,20 +1,22 @@
 <% @title = "Register as new uesr" %>
 <% @page_action = {:name => "Sign in", :url => login_path} %>
 
-<%= form_for @user do |f| %>
+<%= form_for @user, :validate => true do |f| %>
+  <fieldset>
     <%= f.text_field :name %>
     <%= f.text_field :email %>
     <%= f.password_field :password %>
     <%= f.password_field :password_confirmation %>
-  <% if @group %>
-  <p>
-    <%= label_tag "Group Name" %>
-    <b> <%= @group.name %> </b>
-    <%= hidden_field_tag :group_code, @group.code %>
-  </p>
+    <% if @group %>
+      <p>
+        <%= label_tag "Group Name" %>
+        <b> <%= @group.name %> </b>
+        <%= hidden_field_tag :group_code, @group.code %>
+      </p>
 
-  <% end %>
-  <%= f.actions do %>
-    <%= f.submit "Submit" %>
-  <% end %>
+    <% end %>
+    <%= f.actions do %>
+      <%= f.submit "Submit" %>
+    <% end %>
+  </fieldset>
 <% end %>

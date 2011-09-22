@@ -24,7 +24,7 @@ class MyFormBuilder < ActionView::Helpers::FormBuilder
       title += label(field_id, title_text.html_safe, :for => field_id) unless options[:skip_title]
 
       help_text = if options[:help_text]
-        @template.content_tag(:span, options[:help_text].html_safe, :class => "help-block")
+        @template.content_tag(:span, options[:help_text].html_safe, :class => "help-inline")
       else
         "".html_safe
       end
