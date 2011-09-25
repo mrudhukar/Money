@@ -8,9 +8,9 @@
             <%= render_tab(TabConstants::HOME, root_path) %>
             <li class="dropdown <%= 'active' if @tab == TabConstants::GROUPS %>">
               <%= link_to "My Groups", groups_path(), :class => "dropdown-toggle" %>
-              <% if current_user.groups.any? %>
+              <% if current_user.active_groups.any? %>
                 <ul class="dropdown-menu groups">
-                  <% current_user.groups.each do |group| %>
+                  <% current_user.active_groups.each do |group| %>
                     <li><%= link_to truncate(group.name), group_path(group) %> </li>
                   <% end %>
                 </ul>
