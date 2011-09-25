@@ -22,14 +22,6 @@ module ApplicationHelper
     end
   end
 
-  def action_set(options = {}, &block)
-    action_code = capture(&block)
-    action_code_with_wrapper = content_tag(:div, :class => "actions") do
-      action_code
-    end
-    concat(action_code_with_wrapper)
-  end
-
   def user_transaction_partners(group_user)
     pay_structure = PaySuggestions::PaySystem.create(group_user.group)
     payer = pay_structure.users[group_user.id]

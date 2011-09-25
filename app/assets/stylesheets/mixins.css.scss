@@ -1,19 +1,15 @@
 @mixin top-rounded-corners($radius) {
   -moz-border-radius-topleft: $radius;
   -moz-border-radius-topright: $radius;
-  -webkit-border-radius-topleft: $radius;
-  -webkit-border-radius-topright: $radius;
-  border-radius-topright:  $radius;
-  border-radius-topleft:  $radius;
+  border-top-right-radius:  $radius;
+  border-top-left-radius:  $radius;
 }
 
 @mixin bottom-rounded-corners($radius) {
   -moz-border-radius-bottomleft: $radius;
   -moz-border-radius-bottomright: $radius;
-  -webkit-border-radius-bottomleft: $radius;
-  -webkit-border-radius-bottomright: $radius;
-  border-radius-bottomright:  $radius;
-  border-radius-bottomleft:  $radius;
+  border-bottom-right-radius:  $radius;
+  border-bottom-left-radius:  $radius;
 }
 
 @mixin rounded-corners($radius) {
