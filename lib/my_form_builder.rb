@@ -1,6 +1,6 @@
 class MyFormBuilder < ActionView::Helpers::FormBuilder
 
-  helpers = %w{text_field password_field}
+  helpers = %w{text_field password_field text_area}
 
   helpers.each do |name|
     define_method(name) do |field_name, *args|

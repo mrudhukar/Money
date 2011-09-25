@@ -2,8 +2,8 @@
 <div id="new_common_items">
   <fieldset>
     <legend>Enter Item Details</legend>
-    <%= form_for([:group, @common_item]) do |f| %>
-      <%= f.text_field :name, :size => 40 %>
+    <%= form_for [:group, @common_item], :validate => true do |f| %>
+      <%= f.text_field :name %>
       <div class="label_item">
         <label for="common_item_transaction_date">Transaction date:</label>
         <%= calendar_input_tag(:common_item, :transaction_date, :form => f) %>
