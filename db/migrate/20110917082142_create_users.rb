@@ -15,7 +15,6 @@ class CreateUsers < ActiveRecord::Migration
       t.datetime  :last_login_at                                      # optional, see Authlogic::Session::MagicColumns
 
       t.integer :net_balance, :default => 0
-      t.integer :groups_count, :default => 0
 
       t.string :nick_name
       t.boolean :app_admin, :default => false

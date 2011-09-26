@@ -16,3 +16,7 @@
   @include top-rounded-corners($radius);
   @include bottom-rounded-corners($radius);
 }
+
+@mixin highlight-background{
+  background-color: #FFFF99;
+}
