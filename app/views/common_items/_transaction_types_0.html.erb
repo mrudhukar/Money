@@ -1,11 +1,13 @@
-<div class="group_users_list">
+<ul class="inputs-list">
   <% @group.group_users.active.each_with_index do |g_user, i| %>
-    <span class="group_user">
-      <input id="check_box_<%= i %>" type=checkbox name="user_ids[]" value="<%= g_user.user.id %>" <%= "CHECKED" if g_user.user == current_user %>/>
-      <%= g_user.user.display_name.humanize %>
-    </span>
+    <li>
+      <label>
+        <input id="check_box_<%= i %>" type=checkbox name="user_ids[]" value="<%= g_user.user.id %>" <%= "CHECKED" if g_user.user == current_user %>/>
+        <span><%= g_user.user.display_name.humanize %></span>
+      </label>
+    </li>
   <% end %>
   <br/>
   <a id="select" href="#" onclick="CommonItem.selectAll(true);">Check All</a>
   <a id="unselect" style="display:none" href="#" onclick="CommonItem.selectAll(false);">Uncheck All</a>
-</div>
+</ul>
