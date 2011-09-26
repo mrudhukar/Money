@@ -13,8 +13,12 @@ module GroupUsersHelper
   end
 
   def render_action_link(group_user, cur_user)
-    if group_user.user != cur_user
-      group_user.active? ? link_to_suspend(group_user) : link_to_activate(group_user)
+    if cur_user == group_user.group.admin
+      content_tag(:td, :style => "font-size: 0.8em") do
+        if group_user.user != cur_user
+          group_user.active? ? link_to_suspend(group_user) : link_to_activate(group_user)
+        end
+      end
     end
   end
 end

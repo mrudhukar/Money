@@ -1,20 +1,13 @@
 <% @title = @group.name %>
 <div id="new_common_items">
-  <fieldset>
-    <legend>Enter Item Details</legend>
-    <%= form_for [:group, @common_item], :validate => true do |f| %>
+  <%= form_for [:group, @common_item], :validate => true do |f| %>
+    <fieldset>
       <%= f.text_field :name %>
-      <div class="label_item">
-        <label for="common_item_transaction_date">Transaction date:</label>
-        <%= calendar_input_tag(:common_item, :transaction_date, :form => f) %>
-      </div>
-      <div class="label_item">
-        <%= f.label :transaction_type %>
-        <%= f.select :transaction_type, TRANSACTION_TYPE_OPTIONS_ARRAY, {:selected => @common_item.transaction_type},
-          {:onchange => "CommonItem.typeChange('#{new_group_common_item_path(@group)}')", :id => "common_item_transaction_type"} %>
-        <span id="loading_image" style="display: none"><%= image_tag("ajax-loader.gif") %></span>
-      </div>
-      <%= f.text_field :cost, :size => 5 %>
+      <%= f.text_field(:transaction_date, :id => "datepicker") %>
+      <%= f.select :transaction_type, TRANSACTION_TYPE_OPTIONS_ARRAY,
+        {:onchange => "CommonItem.typeChange('#{new_group_common_item_path(@group)}')", :id => "common_item_transaction_type"} %>
+      <span id="loading_image" style="display: none"><%= image_tag("ajax-loader.gif") %></span>
+      <%= f.text_field :cost, :class => "small" %>
       <div class="label_item">
         <label for="common_item_users">Users:</label>
         <div id="transaction_type">
@@ -25,6 +18,6 @@
       <%= f.actions do %>
         <%= f.submit "Create", :onclick => "return CommonItem.beforeSubmit()" %>&nbsp;&nbsp;or&nbsp;&nbsp;<%= link_to "Cancel", group_path(@group) %>
       <% end %>
-    <% end %>
-  </fieldset>
+    </fieldset>
+  <% end %>
 </div>

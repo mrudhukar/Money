@@ -16,4 +16,5 @@ $(document).ready(function(){
     $("a.close").bind("click", function (e) {
         $(this).parent("div.alert-message").hide();
     });
+    $( "#datepicker" ).datepicker({dateFormat: 'MM dd, yy'});
 })

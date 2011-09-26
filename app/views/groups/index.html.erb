@@ -9,7 +9,7 @@
       <% @groups.each do |group| %>
         <div id="group_<%= group.id %>" class="group">
           <div class='group_header clearfix'>
-            <h2><%= link_to group.name, group_path(group) %> </h2>
+            <h3><%= link_to group.name, group_path(group) %> </h3>
             <%= link_to "Add new common item", new_group_common_item_path(group), :class => "button righted" %>
           </div>
           <div class='group_body clearfix'>
@@ -22,17 +22,19 @@
                 <th> Actions </th>
               <% end %>
             </tr>
-            <% group.group_users.each do |group_user| %>
-              <% if group_user.user == current_user %>
-                <% class_name = "self" %>
-              <% elsif !group_user.active? %>
-                <% class_name = "inactive" %>
-              <% end %>
-              <% if group_user.active? || current_user == group.admin %>
-                <tr class="<%= class_name.presence %>" >
+            <% group.active_group_users.each do |group_user| %>
+              <tr class="<%= 'self' if group_user.user == current_user %>" >
+                <td> <%= group_user.user.name %> </td>
+                <td> Rs. <%= group_user.balance %> </td>
+                <%= render_action_link(group_user, current_user) %>
+              </tr>
+            <% end %>
+            <% if current_user == group.admin %>
+              <% group.inactive_group_users.each do |group_user| %>
+                <tr class="inactive" >
                   <td> <%= group_user.user.name %> </td>
                   <td> Rs. <%= group_user.balance %> </td>
-                  <td style="font-size: 0.8em"> <%= render_action_link(group_user, current_user) %> </td>
+                  <%= render_action_link(group_user, current_user) %>
                 </tr>
               <% end %>
             <% end %>

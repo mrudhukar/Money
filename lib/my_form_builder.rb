@@ -1,10 +1,11 @@
 class MyFormBuilder < ActionView::Helpers::FormBuilder
 
-  helpers = %w{text_field password_field text_area}
+  helpers = %w{text_field password_field text_area select}
 
   helpers.each do |name|
     define_method(name) do |field_name, *args|
       options = args.extract_options!
+      choices = args[0] if name == "select"
       options[:class] ||= ''
       options[:class] << " #{name}"
       options[:title] ||= field_name.to_s.humanize
@@ -29,7 +30,8 @@ class MyFormBuilder < ActionView::Helpers::FormBuilder
         "".html_safe
       end
 
-      input = @template.content_tag(:div, super(field_name, options) + help_text, :class => 'input')
+      super_input = (name == "select") ? super(field_name, choices, options) : super(field_name, options)
+      input = @template.content_tag(:div, super_input + help_text, :class => 'input')
 
       @template.content_tag(:div, (title + input).html_safe, :class => 'clearfix')
     end
