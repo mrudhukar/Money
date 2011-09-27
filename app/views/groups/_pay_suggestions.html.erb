@@ -2,17 +2,17 @@
   <% if full_view %>
     <% pay_structure = PaySuggestions::PaySystem.create(group_user.group) %>
     <% receiver_group_users = GroupUser.find(pay_structure.receivers.keys) %>
-    <table border="1px solid #AAA" id="full_pay_details">
-      <tr>
-        <th class="label_names">
-          <span class="payer">Payers</span>
-          <span><dim>/</dim></span>
-          <span>Receivers</span>
-        </th>
-        <% receiver_group_users.each do |group_user| %>
-          <th> <span class="title"> <%= group_user.name %> </span> <small>(Rs.<%= group_user.balance %>)</small></th>
-        <% end %>
-      </tr>
+    <table id="full_pay_details" class="zebra-striped">
+      <thead>
+        <tr>
+          <th class="label_names">
+            <span class="payer">Payers</span>/<span>Receivers</span>
+          </th>
+          <% receiver_group_users.each do |group_user| %>
+            <th> <span class="title"> <%= group_user.name %> </span> <small>(Rs.<%= group_user.balance %>)</small></th>
+          <% end %>
+        </tr>
+      </thead>
       <% pay_structure.payers.keys.each do |group_user| %>
         <% payer = pay_structure.payers[group_user] %>
         <tr>

@@ -8,6 +8,7 @@
         {:onchange => "CommonItem.typeChange('#{new_group_common_item_path(@group)}')", :id => "common_item_transaction_type"} %>
       <span id="loading_image" style="display: none"><%= image_tag("ajax-loader.gif") %></span>
       <%= f.text_field :cost, :class => "small" %>
+
       <div class="clearfix">
         <label>Users</label>
         <div class="input" id="transaction_type">
