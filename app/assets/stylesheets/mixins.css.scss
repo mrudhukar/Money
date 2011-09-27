@@ -20,3 +20,10 @@
 @mixin highlight-background{
   background-color: #FFFF99;
 }
+
+@mixin right-aligned-button{
+  float: right;
+  a{
+    float: right;
+  }
+}

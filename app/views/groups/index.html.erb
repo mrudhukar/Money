@@ -8,32 +8,35 @@
     <div>
       <% @groups.each do |group| %>
         <div id="group_<%= group.id %>" class="group">
-          <div class='group_header clearfix'>
+          <div class='group_header well'>
             <h3><%= link_to group.name, group_path(group) %> </h3>
-            <%= link_to "Add new common item", new_group_common_item_path(group), :class => "button righted" %>
+            <div class="span4"><%= link_to "Add new common item", new_group_common_item_path(group), :class => "btn success" %></div>
           </div>
-          <div class='group_body clearfix'>
+          <div class='group_body well'>
           <%= render :partial => "groups/pay_suggestions", :locals => {:group_user => group.get_group_user(current_user), :full_view => false} %>
-          <table class='group_status'>
-            <tr class="head">
-              <th> Group members </th>
-              <th> Credit </th>
-              <% if current_user == group.admin %>
-                <th> Actions </th>
-              <% end %>
-            </tr>
+          <table class='zebra-striped group_status sortenabled'>
+            <thead>
+              <tr class="head">
+                <th> Group members </th>
+                <th> Credit in Rupees</th>
+                <% if current_user == group.admin %>
+                  <th> Actions </th>
+                <% end %>
+              </tr>
+            </thead>
+            
             <% group.active_group_users.each do |group_user| %>
               <tr class="<%= 'self' if group_user.user == current_user %>" >
                 <td> <%= group_user.user.name %> </td>
-                <td> Rs. <%= group_user.balance %> </td>
+                <td> <%= group_user.balance %> </td>
                 <%= render_action_link(group_user, current_user) %>
               </tr>
             <% end %>
-            <% if current_user == group.admin %>
+            <% if false && current_user == group.admin %>
               <% group.inactive_group_users.each do |group_user| %>
                 <tr class="inactive" >
                   <td> <%= group_user.user.name %> </td>
-                  <td> Rs. <%= group_user.balance %> </td>
+                  <td> <%= group_user.balance %> </td>
                   <%= render_action_link(group_user, current_user) %>
                 </tr>
               <% end %>

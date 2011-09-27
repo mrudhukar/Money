@@ -16,7 +16,8 @@
       </div>
 
       <%= f.actions do %>
-        <%= f.submit "Create", :onclick => "return CommonItem.beforeSubmit()" %>&nbsp;&nbsp;or&nbsp;&nbsp;<%= link_to "Cancel", group_path(@group) %>
+        <%= f.submit "Create", :onclick => "return CommonItem.beforeSubmit()" %>
+        <%= f.cancel_path "Cancel", group_path(@group) %>
       <% end %>
     </fieldset>
   <% end %>

@@ -45,6 +45,15 @@ class MyFormBuilder < ActionView::Helpers::FormBuilder
     super(label, options)
   end
 
+  def cancel_path(label, *args)
+    path = args[0]
+    options = args.extract_options! || {}
+    options[:disable_with] = 'please wait..'
+    options[:class] = (options[:class] || '') + 'btn'
+
+    @template.link_to(label, path, options)
+  end
+
   def actions(&block)
     @template.content_tag(:div, @template.capture(&block), :class => "actions")
   end

@@ -9,6 +9,8 @@
 //= require rails.validations
 //= require rails.validations.myFormBuilders
 //= require bootstrap-dropdown
+//= require columnizer
+//= require jquery.tablesorter.min
 //= require_tree .
 
 $(document).ready(function(){
@@ -17,4 +19,6 @@ $(document).ready(function(){
         $(this).parent("div.alert-message").hide();
     });
     $( "#datepicker" ).datepicker({dateFormat: 'MM dd, yy'});
+    $('ul.columnize').makeacolumnlists({cols:3,colWidth:100, equalHeight:true, startN:1});
+    $("table.sortenabled").tablesorter({ sortList: [[1,0]] });
 })

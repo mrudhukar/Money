@@ -25,10 +25,16 @@
     </table>
   <% else %>
     <% if group_user.balance != 0 %>
-      <div id="pay_structure" class="clearfix">
-        <h3 class='small_view'> Suggested transaction: </h3>
-        <div class="transactions">
-          <%= raw transaction_statement(group_user) %>
+      <div id="pay_structure" class="alert-message block-message <%= group_user.balance > 0 ? 'error' : 'success' %>">
+        <a class="close" href="#">×</a>
+        <p>
+          <h4> Suggested transaction: </h4>
+          <div class="transactions">
+            <%= raw transaction_statement(group_user) %>
+          </div>
+        </p>
+        <div class="alert-actions">
+          <%= link_to group_user.balance > 0 ? "Make payment" : "Recieve payment", "#", :class => "btn small" %>
         </div>
       </div>
     <% end %>

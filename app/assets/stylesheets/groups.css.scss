@@ -4,11 +4,28 @@
   .group{
     margin: 2em 0;
     .group_header{
-       background: none repeat scroll 0 0 #EEEEEE;
-       border: 1px solid #BBBBBB;
-       padding: 7px 0;
-       width: 100%;
-       @include top-rounded-corners(5px);
+      margin-bottom: 0;
+      padding: 15px;
+       h3{
+         float: left;
+       }
+       .span4 {
+         @include right-aligned-button;
+       }
+    }
+
+    .group_body{
+      background-color: white;
+      table.group_status{
+        width: 50%;
+        tr.inactive{
+          color: #CCC;
+          font-size: 0.9em;
+        }
+        tr.self td{
+          @include highlight-background;
+        }
+      }
     }
   }
 }

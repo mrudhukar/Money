@@ -3,10 +3,11 @@
 <div id="new_group">
   <%= form_for @group, :validate => true do |f| %>
     <%= f.text_field :name %>
-    <%= f.text_area :description %>
+    <%= f.text_area :description, :class => "xxlarge", :rows => 3 %>
 
     <%= f.actions do %>
-      <%= f.submit "Submit" %> or <%= link_to "Cancel", groups_path %>
+      <%= f.submit "Submit" %>
+      <%= f.cancel_path "Cancel", groups_path %>
     <% end %>
   <% end %>
 </div>

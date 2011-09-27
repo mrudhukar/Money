@@ -6,10 +6,7 @@
   .inner_header {
     margin-bottom: 20px;
     .span4 {
-      float: right;
-      a.primary {
-        float: right;
-      }
+      @include right-aligned-button;
     }
   }
 }
@@ -18,4 +15,8 @@
   .dropdown-menu.groups{
     width: 500px;
   }
+}
+
+ul.columnize{
+  padding-top: 6px;
 }
