@@ -3,10 +3,8 @@
 
 <div id="group_show">
   <%= render :partial => "groups/group_details" %>
-  <%= render :partial => "groups/admin_actions" %>
-  <%= will_paginate @common_items %>
-
-  <div style="overflow-x: scroll; margin-bottom: 20px;">
+  <div style="overflow-x: scroll;" class="well">
+    <%= will_paginate @common_items, :renderer => PaginationListLinkRenderer %>
     <table id="common_items_table" class="zebra-striped">
       <thead>
         <tr>
@@ -50,5 +48,7 @@
         </tr>
       <% end %>
     </table>
+    <%= will_paginate @common_items, :renderer => PaginationListLinkRenderer %>
   </div>
+  <%= render :partial => "groups/admin_actions" %>
 </div>

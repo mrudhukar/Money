@@ -14,7 +14,7 @@ module CommonItemsHelper
       disp_amt = display_amount(g_user.user, common_item)
       string += "#{g_user.name} - #{disp_amt} &nbsp;" unless disp_amt.blank?
     end
-    return string
+    return string.html_safe
   end
 
   def show_delete_link(common_item)

@@ -1,25 +1,28 @@
 <% @title = "Welcome #{@user.name}" %>
 <% @page_action = {:name => "Edit profile", :url => edit_user_path(@user)} if (current_user == @user || current_user.app_admin?) %>
 
-<div id="user_show">
-  <div>
-  <%= label_tag "Name" %>
-  <%= @user.name %>
+<div id="user_show" class="well">
+  <div class="span20">
+    <div class="span2">Name</div>
+    <div class="span4"><%= @user.name %></div>
   </div>
-  <div>
-  <%= label_tag "Nick Name" %>
-  <%= @user.nick_name || "<dim><i>Not specified</i></dim>"%>
+
+  <div class="span20">
+    <div class="span2">Nick Name</div>
+    <div class="span4"><%= @user.nick_name || "<dim><i>Not specified</i></dim>"%></div>
   </div>
-  <div>
-  <%= label_tag "Email" %>
-  <%= @user.email %>
+
+  <div class="span20">
+    <div class="span2">Email</div>
+    <div class="span4"><%= @user.email %></div>
   </div>
-  <div>
-    <%= label_tag "Groups" %>
+
+  <div class="span20">
+    <div class="span2">Groups</div>
     <ul class="clearfix">
-    <% @user.groups.each do |group| %>
-      <li class="groups_list"><%= link_to(group.name, group_path(group)) %></li>
-    <% end %>
+      <% @user.groups.each do |group| %>
+        <li class="groups_list"><%= link_to(group.name, group_path(group)) %></li>
+      <% end %>
     </ul>
   </div>
 </div>
