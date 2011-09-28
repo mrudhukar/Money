@@ -1,0 +1,21 @@
+<ul class="inputs-list wider columnize">
+  <% users.sort{|x,y| x.name.humanize <=> y.name.humanize}.each do |g_user| %>
+    <li>
+      <div class="input-prepend">
+        <label class="add-on">
+          <%= g_user.name.humanize %>
+        </label>
+        <%= text_field :item_cost, g_user.user.id, :class => "mini" %>
+      </div>
+
+    </li>
+  <% end %>
+</ul>
+
+
+<script>
+  <% users.each_with_index do |g_u, i| %>
+    CommonItem.elements[<%= i %>] = $('item_cost_<%= g_u.user.id %>')
+  <% end %>
+  CommonItem.observeAll();
+</script>

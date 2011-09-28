@@ -19,9 +19,11 @@ $(document).ready(function(){
         $(this).parent("div.alert-message").hide();
     });
     $( "#datepicker" ).datepicker({dateFormat: 'MM dd, yy'});
-    $('ul.columnize').makeacolumnlists({cols:3,colWidth:100, equalHeight:true, startN:1});
-    $("table.sortenabled").tablesorter({ sortList: [[1,0]] });
 
+    $('ul.lighter.columnize').makeacolumnlists({cols:3,colWidth:100, equalHeight:true, startN:1});
+    $('ul.wider.columnize').makeacolumnlists({cols:3,colWidth:200, equalHeight:true, startN:1});
+
+    $("table.sortenabled").tablesorter({ sortList: [[1,0]] });
 
     $("#common_item_transaction_type").change(function(){
       CommonItem.typeChange($(this).data("url"));
@@ -51,8 +53,8 @@ var CommonItem = {
   },
 
   update_cost: function(){
-    $('common_item_cost').disabled = false;
-    $('common_item_cost').value = 0;
+    $('#common_item_cost').attr('disabled', false);
+    $('common_item_cost').val("0");
     var sum = 0;
     for(i =0 ; i < this.elements.length; i++){
       sum += parseInt(this.elements[i].value || 0);
@@ -67,11 +69,11 @@ var CommonItem = {
   update_final_cost: function (){
     this.update_cost();
 
-    if(isNaN($('common_item_cost').value)){
+    if(isNaN($('#common_item_cost').val())){
       alert("Give valid values for the items");
       return false;
     }
-    $('common_item_cost').disabled = false;
+    $('#common_item_cost').attr('disabled', false);
     return true;
   },
 
@@ -91,7 +93,7 @@ var CommonItem = {
         return false;
       }
     }else{
-      $('common_item_cost').disabled = false;
+      $('#common_item_cost').attr('disabled', false);
       return this.update_final_cost();
     }
   },

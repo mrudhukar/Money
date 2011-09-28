@@ -1,13 +1,1 @@
-<% @group.group_users.active.receivers.each do |group_user| %>
-  <span class="user_with_box">
-    <span><%= group_user.name.humanize %></span><br>
-    <%= text_field :item_cost, group_user.user_id, :size => 5 %>
-  </span>
-<% end %>
-
-<script>
-  <% @group.group_users.active.receivers.each_with_index do |g_u, i| %>
-    CommonItem.elements[<%= i %>] = $('item_cost_<%= g_u.user_id %>')
-  <% end %>
-  CommonItem.observeAll();
-</script>
+<%= render :partial => "user_transaction", :locals => {:users => @group.group_users.active.receivers} %>
