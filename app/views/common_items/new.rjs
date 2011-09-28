@@ -1,7 +1,0 @@
-page.replace_html 'transaction_type', :partial => "transaction_types_#{@type}"
-if @type == "0"
-  page << "$('common_item_cost').disabled = false;"
-else
-  page << "$('common_item_cost').disabled = true;"
-end
-page["loading_image"].hide()

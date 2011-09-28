@@ -4,8 +4,7 @@
     <fieldset>
       <%= f.text_field :name %>
       <%= f.text_field(:transaction_date, :id => "datepicker") %>
-      <%= f.select :transaction_type, TRANSACTION_TYPE_OPTIONS_ARRAY,
-        {:onchange => "CommonItem.typeChange('#{new_group_common_item_path(@group)}')", :id => "common_item_transaction_type"} %>
+      <%= f.select :transaction_type, TRANSACTION_TYPE_OPTIONS_ARRAY,{}, {"data-url" => new_group_common_item_path(@group), :id => "common_item_transaction_type"} %>
       <span id="loading_image" style="display: none"><%= image_tag("ajax-loader.gif") %></span>
       <%= f.text_field :cost, :class => "small" %>
 

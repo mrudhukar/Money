@@ -1,0 +1,7 @@
+$('#transaction_type').html(<%= escape_javascript(render :partial => "transaction_types_#{@type}")%>)
+<% if @type == "0" %>
+  $('#common_item_cost').attr('disabled', false);
+<% else %>
+  $('#common_item_cost').attr('disabled', true);
+<% end %>
+$('#common_item_cost').hide()

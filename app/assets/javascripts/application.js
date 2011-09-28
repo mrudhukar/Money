@@ -21,7 +21,12 @@ $(document).ready(function(){
     $( "#datepicker" ).datepicker({dateFormat: 'MM dd, yy'});
     $('ul.columnize').makeacolumnlists({cols:3,colWidth:100, equalHeight:true, startN:1});
     $("table.sortenabled").tablesorter({ sortList: [[1,0]] });
-})
+
+
+    $("#common_item_transaction_type").change(function(){
+      CommonItem.typeChange($(this).data("url"));
+    });
+});
 
 var CommonItem = {
   elements: [],
@@ -31,9 +36,8 @@ var CommonItem = {
   },
 
   typeChange: function(url){
-    var url_with_params = url + '?type=' + this.tType();
-    $('loading_image').show();
-    new Ajax.Request(url_with_params, {asynchronous:true, evalScripts:true, method:'get'});
+    $('#loading_image').show();
+    $.get( url, {type: this.tType()});
     return false;
   },
 
