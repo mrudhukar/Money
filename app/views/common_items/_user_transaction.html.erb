@@ -14,8 +14,5 @@
 
 
 <script>
-  <% users.each_with_index do |g_u, i| %>
-    CommonItem.elements[<%= i %>] = $('item_cost_<%= g_u.user.id %>')
-  <% end %>
   CommonItem.observeAll();
 </script>

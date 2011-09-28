@@ -44,25 +44,24 @@ var CommonItem = {
   },
 
   observeAll: function(){
-//    for(i =0 ; i < this.elements.length; i++){
-//    Event.observe(this.elements[i], 'keyup',   function(){CommonItem.update_cost();}, false);
-//    Event.observe(this.elements[i], 'keydown', function(){CommonItem.update_cost();}, false);
-//    Event.observe(this.elements[i], 'click',   function(){CommonItem.update_cost();}, false);
-//    Event.observe(this.elements[i], 'blur', function(){CommonItem.update_cost();}, false);
-//    }
+    $("#transaction_type .input-prepend input").bind('click keyup keydown blur focus', function(){
+      CommonItem.update_cost();
+    });
   },
 
   update_cost: function(){
+    var elements = $("#transaction_type .input-prepend input");
+
     $('#common_item_cost').attr('disabled', false);
-    $('common_item_cost').val("0");
+    $('#common_item_cost').val("0");
     var sum = 0;
-    for(i =0 ; i < this.elements.length; i++){
-      sum += parseInt(this.elements[i].value || 0);
+    for(i =0 ; i < elements.length; i++){
+      sum += parseInt($(elements[i]).val() || 0);
     }
-    $('common_item_cost').value = sum;
+    $('#common_item_cost').val(sum);
 
     if(this.tType() != "0"){
-      $('common_item_cost').disabled = true;
+      $('#common_item_cost').attr('disabled', true);
     }
   },
 
