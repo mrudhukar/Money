@@ -13,21 +13,28 @@
 //= require jquery.tablesorter.min
 //= require_tree .
 
+jQuery.ajaxSetup({
+  'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
+})
+
+function onLoadMethods() {
+  $("a.close").bind("click", function (e) {
+    $(this).parent("div.alert-message").hide();
+  });
+
+  $( "#datepicker" ).datepicker({dateFormat: 'MM dd, yy'});
+
+  $('ul.lighter.columnize').makeacolumnlists({cols:3,colWidth:100, equalHeight:true, startN:1});
+  $('ul.wider.columnize').makeacolumnlists({cols:3,colWidth:200, equalHeight:true, startN:1});
+
+  $("table.sortenabled").tablesorter({ sortList: [[1,0]] });
+}
+
 $(document).ready(function(){
-
-    $("a.close").bind("click", function (e) {
-        $(this).parent("div.alert-message").hide();
-    });
-    $( "#datepicker" ).datepicker({dateFormat: 'MM dd, yy'});
-
-    $('ul.lighter.columnize').makeacolumnlists({cols:3,colWidth:100, equalHeight:true, startN:1});
-    $('ul.wider.columnize').makeacolumnlists({cols:3,colWidth:200, equalHeight:true, startN:1});
-
-    $("table.sortenabled").tablesorter({ sortList: [[1,0]] });
-
-    $("#common_item_transaction_type").change(function(){
-      CommonItem.typeChange($(this).data("url"));
-    });
+  onLoadMethods();
+  $("#common_item_transaction_type").change(function(){
+    CommonItem.typeChange($(this).data("url"));
+  });
 });
 
 var CommonItem = {
@@ -39,7 +46,7 @@ var CommonItem = {
 
   typeChange: function(url){
     $('#loading_image').show();
-    $.get( url, {type: this.tType()});
+    $.get( url, {type: this.tType()}, function(){onLoadMethods()});
     return false;
   },
 
@@ -67,8 +74,16 @@ var CommonItem = {
 
   update_final_cost: function (){
     this.update_cost();
+    var elements = $("#transaction_type .input-prepend input");
 
-    if(isNaN($('#common_item_cost').val())){
+    var empty = true;
+    for(i =0 ; i < elements.length; i++){
+      if($(elements[i]).val()){
+        empty = false;
+      }
+    }
+
+    if(isNaN($('#common_item_cost').val()) || empty){
       alert("Give valid values for the items");
       return false;
     }

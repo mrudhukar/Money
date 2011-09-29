@@ -1,1 +1,1 @@
-<%= render :partial => "user_transaction", :locals => {:users => @group.group_users.active} %>
+<%= render :partial => "user_transaction", :locals => {:users => @group.group_users.active.all(:include => :user)} %>

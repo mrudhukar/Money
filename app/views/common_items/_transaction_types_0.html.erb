@@ -1,5 +1,5 @@
 <ul class="inputs-list lighter columnize">
-  <% @group.group_users.active.sort{|x,y| x.name.humanize <=> y.name.humanize}.each_with_index do |g_user, i| %>
+  <% @group.group_users.active.all(:include => :user).sort{|x,y| x.name.humanize <=> y.name.humanize}.each_with_index do |g_user, i| %>
     <li>
       <label>
         <input id="check_box_<%= i %>" type=checkbox name="user_ids[]" value="<%= g_user.user.id %>" <%= "CHECKED" if g_user.user == current_user %>/>

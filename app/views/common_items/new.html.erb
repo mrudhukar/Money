@@ -6,12 +6,12 @@
       <%= f.text_field(:transaction_date, :id => "datepicker") %>
       <%= f.select :transaction_type, TRANSACTION_TYPE_OPTIONS_ARRAY,{}, {"data-url" => new_group_common_item_path(@group), :id => "common_item_transaction_type"} %>
       <span id="loading_image" style="display: none"><%= image_tag("ajax-loader.gif") %></span>
-      <%= f.text_field :cost, :class => "small" %>
+      <%= f.text_field :cost, :class => "small", :validate => false %>
 
       <div class="clearfix">
         <label>Users</label>
         <div class="input" id="transaction_type">
-          <%= render :partial => "common_items/transaction_types_1" %>
+          <%= render :partial => "common_items/transaction_types_#{@common_item.transaction_type}" %>
         </div>
       </div>
 

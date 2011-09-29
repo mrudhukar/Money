@@ -35,7 +35,8 @@ class CommonItemsController < ApplicationController
       flash[:notice]= "Item has been successfully added"
       redirect_to :action => :index
     else
-      render :action =>  :new
+      flash[:error]= "Sorry couldnot save this"
+      redirect_to :action =>  :new
     end
   end
 
