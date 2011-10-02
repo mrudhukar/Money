@@ -83,13 +83,22 @@ var CommonItem = {
     }
   },
 
-  selectAll: function(state){
-    var theForm = $('#new_common_item input[type=checkbox]');
-    var z = 0;
-    for (z = 0; z < theForm.length; z++) {
-      theForm[z].checked = state;
-    }
-    $('#select').toggle();
-    $('#unselect').toggle();
+  observeSelectAll: function(){
+    $("#transaction_type #select_all").live("click", function (){
+      var state;
+      var html = $(this).html();
+
+      if( html == "Select All"){
+        $(this).html("Unselect All");
+        state = true;
+      }else{
+        $(this).html("Select All");
+        state = false;
+      }
+
+      $.each($('#new_common_item input[type=checkbox]'), function(index, value){
+        value.checked = state;
+      });
+    });
   }
 }

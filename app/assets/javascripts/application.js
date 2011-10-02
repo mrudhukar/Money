@@ -17,24 +17,24 @@
 //= require_tree .
 
 function onLoadMethods() {
-  $("a.close").bind("click", function (e) {
-    $(this).parent("div.alert-message").hide();
-  });
-
-  $(".modal a.cancel").bind('click', function(){
-    $('.modal').modal('hide');
-  });
-
   $(".datepicker" ).datepicker({dateFormat: 'MM dd, yy'});
 
   $('ul.lighter.columnize').makeacolumnlists({cols:3,colWidth:100, equalHeight:true, startN:1});
   $('ul.wider.columnize').makeacolumnlists({cols:2,colWidth:200, equalHeight:true, startN:1});
-
-  $("table.sortenabled").tablesorter({sortList: [[1,0]]});
 }
 
 $(document).ready(function(){
   onLoadMethods();
+  CommonItem.observeSelectAll();
+  $("table.sortenabled").tablesorter({sortList: [[1,0]]});
+
+  $("a.close").live("click", function (){
+    $(this).parent("div.alert-message").hide();
+  });
+
+  $(".modal a.cancel").live('click', function(){
+    $('.modal').modal('hide');
+  });
 });
 
 function openPopup(id){
