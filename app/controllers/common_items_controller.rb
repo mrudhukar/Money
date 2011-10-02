@@ -3,10 +3,9 @@ class CommonItemsController < ApplicationController
   allow :exec => :check_auth
 
   def new
-    if request.xhr?
-      @type = params[:type]
-    else
-      @common_item = @group_user.common_items.new(:transaction_date => Date.today.strftime("%B %d,%Y"))
+    @type = params[:type] || CommonItem::Type::SHARED_EQUALLY.to_s
+    unless params[:type_change]
+      @common_item = @group_user.common_items.new(:transaction_date => Date.today.strftime("%B %d,%Y"), :transaction_type => @type)
     end
   end
 
@@ -33,11 +32,10 @@ class CommonItemsController < ApplicationController
 
     if @common_item.save
       flash[:notice]= "Item has been successfully added"
-      redirect_to :action => :index
     else
-      flash[:error]= "Sorry couldnot save this"
-      redirect_to :action =>  :new
+      flash[:error]= "Sorry could not save this"
     end
+    redirect_to :action => :index
   end
 
   def index

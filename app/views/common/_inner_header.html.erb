@@ -13,7 +13,7 @@
   <% end %>
   <% if @page_action %>
     <div class="span4">
-      <%= link_to(@page_action[:name] , @page_action[:url], :class => "btn large primary") %>
+      <%= link_to(@page_action[:name] , @page_action[:url], :class => "btn large primary", :remote => @page_action[:remote], :disable_with => "please wait..") %>
     </div>
   <% end %>
 </div>

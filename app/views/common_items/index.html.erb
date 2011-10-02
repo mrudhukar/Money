@@ -1,5 +1,5 @@
 <% @title = @group.name %>
-<% @page_action = {:name => "Add new item", :url => new_group_common_item_path(:group_id => @group.id)} %>
+<% @page_action = {:name => "Track a transaction", :url => new_group_common_item_path(@group), :remote => true} %>
 
 <div id="group_show">
   <%= render :partial => "groups/group_details" %>

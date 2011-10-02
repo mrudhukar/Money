@@ -1,0 +1,29 @@
+<div id="new_common_item_modal" class="modal hide fade in">
+  <div class="modal-header">
+    <a href="#" class="close">×</a>
+    <h3>Transaction in <%= truncate(@group.name) %></h3>
+  </div>
+  <%= form_for [:group, @common_item], :validate => true do |f| %>
+    <div class="modal-body">
+      <%= f.text_field :name %>
+      <%= f.text_field(:transaction_date, :class => "datepicker") %>
+      <%= f.select :transaction_type, TRANSACTION_TYPE_OPTIONS_ARRAY,{}, {"data-url" => new_group_common_item_path(@group), :id => "common_item_transaction_type"} %>
+      <div id="loading_image" style="display: none"><%= image_tag("ajax-loader.gif") %></div>
+
+      <div id="type_based_content">
+        <%= f.text_field :cost, :class => "small", :validate => false %>
+        <div class="clearfix">
+          <label>Users</label>
+          <div class="input" id="transaction_type">
+            <%= render :partial => "common_items/transaction_types_#{@common_item.transaction_type}" %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer actions">
+      <%= f.submit "Create", :onclick => "return CommonItem.beforeSubmit()" %>
+      <%= f.cancel_path "Cancel", "#", :class => "cancel" %>
+    </div>
+  <% end %>
+</div>

@@ -48,7 +48,7 @@ class MyFormBuilder < ActionView::Helpers::FormBuilder
     path = args[0]
     options = args.extract_options! || {}
     options[:disable_with] = 'please wait..'
-    options[:class] = (options[:class] || '') + 'btn'
+    options[:class] = (options[:class] || '') + ' btn'
 
     @template.link_to(label, path, options)
   end

@@ -34,7 +34,12 @@
           </div>
         </p>
         <div class="alert-actions">
-          <%= link_to group_user.balance > 0 ? "Make payment" : "Recieve payment", "#", :class => "btn small" %>
+          <% if group_user.balance > 0 %>
+            <%= link_to "Track a payment", new_group_common_item_path(group_user.group, :type => CommonItem::Type::PAYMENT), :remote => true, :class => "btn small", :disable_with => "please wait.." %>
+          <% else %>
+            <%= link_to "Track a recieved payment", "#", :remote => true, :class => "btn small" %>
+          <% end %>
+          
         </div>
       </div>
     <% end %>

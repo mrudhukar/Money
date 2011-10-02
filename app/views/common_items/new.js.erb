@@ -1,7 +1,13 @@
-$('#transaction_type').html("<%= escape_javascript(render :partial => "transaction_types_#{@type}")%>")
-<% if @type == "0" %>
-  $('#common_item_cost').attr('disabled', false);
+<% if params[:type_change] %>
+  $('#transaction_type').html("<%= escape_javascript(render :partial => "transaction_types_#{@type}")%>")
+  <% if @type == "0" %>
+    $('#common_item_cost').attr('disabled', false);
+  <% else %>
+    $('#common_item_cost').attr('disabled', true);
+  <% end %>
+  $('#loading_image').hide()
 <% else %>
-  $('#common_item_cost').attr('disabled', true);
+  $('#modal_popup_container').html("<%= escape_javascript(render :partial => "new")%>")
+  openPopup("new_common_item_modal");
+  CommonItem.observeChange();
 <% end %>
-$('#loading_image').hide()

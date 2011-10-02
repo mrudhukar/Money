@@ -31,3 +31,30 @@ ul.columnize,{
   }
   margin-bottom: 5px;
 }
+
+.modal form{
+  margin-bottom: 0px;
+  label{
+    width: 100px;
+  }
+  .input{
+    margin-left: 120px;
+  }
+  .modal-body{
+    padding-bottom: 0px;
+  }
+  .modal-footer{
+    margin-top: 0px;
+    padding-left: 135px;
+    .btn{
+      float: left;
+      margin-right: 5px;
+      margin-left: 0px;
+    }
+  }
+}
+
+#loading_image{
+  text-align: center;
+  padding: 15px 0;
+}
