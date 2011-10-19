@@ -8,6 +8,6 @@
   $('#loading_image').hide()
 <% else %>
   $('#modal_popup_container').html("<%= escape_javascript(render :partial => "new")%>")
-  openPopup("new_common_item_modal");
+  openPopup("#new_common_item_modal");
   CommonItem.observeChange();
 <% end %>
