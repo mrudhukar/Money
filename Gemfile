@@ -20,9 +20,6 @@ end
 gem 'jquery-rails'
 gem 'client_side_validations'
 
-# Use unicorn as the web server
-# gem 'unicorn'
-
 # Deploy with Capistrano
 # gem 'capistrano'
 gem 'authlogic'
@@ -36,4 +33,9 @@ end
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
+end
+
+group :production do
+  gem 'pg'
+  gem 'therubyracer-heroku',  '0.8.1.pre3'
 end
