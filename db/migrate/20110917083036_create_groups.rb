@@ -4,12 +4,7 @@ class CreateGroups < ActiveRecord::Migration
       t.integer :user_id
       t.string :name
       t.text :description
-      t.string :code
-
-      t.column :redeemed_at, :datetime
-      t.column :redeemed_by_id, :integer
-
-      t.column :expires_on, :datetime
+      t.text :code
 
       t.timestamps
     end

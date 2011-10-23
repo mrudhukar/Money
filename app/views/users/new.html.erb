@@ -8,11 +8,13 @@
     <%= f.password_field :password %>
     <%= f.password_field :password_confirmation %>
     <% if @group %>
-      <p>
-        <%= label_tag "Group Name" %>
-        <b> <%= @group.name %> </b>
+      <div class="clearfix">
+        <%= label_tag "Group" %>
+        <div class="input">
+          <b class="uneditable-input"> <%= @group.name %> </b>
+        </div>
         <%= hidden_field_tag :group_code, @group.code %>
-      </p>
+      </div>
 
     <% end %>
     <%= f.actions do %>

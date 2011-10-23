@@ -3,23 +3,23 @@
 
 <div id="user_show" class="well">
   <div class="span20">
-    <div class="span2">Name</div>
+    <div class="span3">Name</div>
     <div class="span4"><%= @user.name %></div>
   </div>
 
   <div class="span20">
-    <div class="span2">Nick Name</div>
-    <div class="span4"><%= @user.nick_name || "<dim><i>Not specified</i></dim>"%></div>
+    <div class="span3">Nick Name</div>
+    <div class="span4"><%= @user.nick_name || raw("<dim><i>Not specified</i></dim>")%></div>
   </div>
 
   <div class="span20">
-    <div class="span2">Email</div>
+    <div class="span3">Email</div>
     <div class="span4"><%= @user.email %></div>
   </div>
 
   <div class="span20">
-    <div class="span2">Groups</div>
-    <ul class="clearfix">
+    <div class="span3">Groups</div>
+    <ul class="span4 clearfix">
       <% @user.groups.each do |group| %>
         <li class="groups_list"><%= link_to(group.name, group_path(group)) %></li>
       <% end %>

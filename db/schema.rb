@@ -41,10 +41,7 @@ ActiveRecord::Schema.define(:version => 20110917090704) do
     t.integer  "user_id"
     t.string   "name"
     t.text     "description"
-    t.string   "code"
-    t.datetime "redeemed_at"
-    t.integer  "redeemed_by_id"
-    t.datetime "expires_on"
+    t.text     "code"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
