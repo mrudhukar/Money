@@ -26,7 +26,8 @@ gem 'authlogic'
 gem 'will_paginate', '~> 3.0.0'
 
 group :development, :test do
-  gem 'ruby-debug19', :require => 'ruby-debug'
+#  This has an issue with heroku
+#  gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'therubyracer'
 end
 
