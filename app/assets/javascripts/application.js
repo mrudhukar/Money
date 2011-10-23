@@ -38,10 +38,10 @@ $(document).ready(function(){
 });
 
 function openPopup(id){
-  $('#'+id).modal({keyboard: true, backdrop: "static", show: true});
+  $(id).modal({keyboard: true, backdrop: "static", show: true});
   onLoadMethods();
   $('form[data-validate]').validate();
-  $('#'+id).bind('hidden', function () {
+  $(id).bind('hidden', function () {
     $(this).remove();
   });
 }

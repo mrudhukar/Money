@@ -14,7 +14,7 @@
             <th><%= g_user.name %></th>
           <% end %>
           <% if @suspended_group_users.any? %>
-            <th class="suspended"> Suspended Users </th>
+            <th class="suspended" style="color:gray;"> Suspended Users </th>
           <% end %>
           <th class='date'>Transaction Date</th>
         </tr>
@@ -32,7 +32,7 @@
             <td><%= display_amount(g_user.user, common_item) %></td>
           <% end %>
           <% if @suspended_group_users.any? %>
-            <td class="suspended"> <%= display_amount_for_suspended_users(@suspended_group_users, common_item) %> </td>
+            <td class="suspended" style="color:gray;"> <%= display_amount_for_suspended_users(@suspended_group_users, common_item) %> </td>
           <% end %>
           <td><small><%= common_item.transaction_date.strftime('%b, %d %Y') %></small></td>
         </tr>

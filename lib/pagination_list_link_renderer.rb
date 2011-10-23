@@ -25,7 +25,6 @@ class PaginationListLinkRenderer < WillPaginate::ActionView::LinkRenderer
 
   def html_container(html)
     tag(:div, tag(:ul, html, container_attributes), :class => "pagination")
-      
   end
 
 end
