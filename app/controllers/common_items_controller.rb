@@ -17,7 +17,7 @@ class CommonItemsController < ApplicationController
       @group.users.find_all_by_id(params[:item_cost].keys).each do |user|
         key = user.id.to_s
         unless params[:item_cost][key].blank? || params[:item_cost][key] == "0"
-          item = @common_item.items.build(:user => user, :default_amount => params[:item_cost][key], :name => @common_item.name, :transaction_date => @common_item.transaction_date)
+          item = @common_item.items.build(:user => user, :default_amount => params[:item_cost][key])
           item.common_item = @common_item
         end
       end
@@ -25,7 +25,7 @@ class CommonItemsController < ApplicationController
       users = @group.users.find_all_by_id(params[:user_ids])
       default_amount = (@common_item.cost.to_f/users.size.to_f).round
       users.each do |user|
-        item = @common_item.items.build(:user => user, :default_amount => default_amount, :name => @common_item.name, :transaction_date => @common_item.transaction_date)
+        item = @common_item.items.build(:user => user, :default_amount => default_amount)
         item.common_item = @common_item
       end
     end
