@@ -11,17 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110917090704) do
+ActiveRecord::Schema.define(:version => 20120121072925) do
 
   create_table "common_items", :force => true do |t|
     t.integer  "group_user_id"
     t.string   "name"
     t.string   "description"
     t.integer  "cost",             :default => 0
-    t.date     "transaction_date"
-    t.integer  "transaction_type", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "transaction_date"
+    t.integer  "transaction_type", :default => 0
   end
 
   add_index "common_items", ["group_user_id"], :name => "index_common_items_on_group_user_id"
@@ -30,18 +30,20 @@ ActiveRecord::Schema.define(:version => 20110917090704) do
     t.integer  "user_id"
     t.integer  "group_id"
     t.float    "balance",    :default => 0.0
-    t.integer  "status",     :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "status",     :default => 0
   end
 
+  add_index "group_users", ["group_id"], :name => "index_group_users_on_group_id"
   add_index "group_users", ["user_id", "group_id"], :name => "index_group_users_on_user_id_and_group_id"
+  add_index "group_users", ["user_id"], :name => "index_group_users_on_user_id"
 
   create_table "groups", :force => true do |t|
     t.integer  "user_id"
     t.string   "name"
     t.text     "description"
-    t.text     "code"
+    t.text     "code",        :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -57,22 +59,24 @@ ActiveRecord::Schema.define(:version => 20110917090704) do
   add_index "items", ["user_id", "common_item_id"], :name => "index_items_on_user_id_and_common_item_id"
 
   create_table "users", :force => true do |t|
-    t.string   "name",                                  :null => false
-    t.string   "email",                                 :null => false
-    t.string   "crypted_password"
-    t.string   "password_salt"
-    t.string   "persistence_token",                     :null => false
-    t.string   "perishable_token",   :default => "",    :null => false
-    t.integer  "login_count",        :default => 0,     :null => false
-    t.integer  "failed_login_count", :default => 0,     :null => false
+    t.string   "name",                                    :null => false
+    t.string   "email",                                   :null => false
+    t.string   "crypted_password",                        :null => false
+    t.string   "password_salt",                           :null => false
+    t.string   "persistence_token",                       :null => false
+    t.string   "perishable_token",     :default => "",    :null => false
+    t.integer  "login_count",          :default => 0,     :null => false
+    t.integer  "failed_login_count",   :default => 0,     :null => false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
-    t.integer  "net_balance",        :default => 0
-    t.string   "nick_name"
-    t.boolean  "app_admin",          :default => false
+    t.integer  "net_balance",          :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "nick_name"
+    t.boolean  "app_admin",            :default => false
+    t.datetime "last_notified_at"
+    t.integer  "notification_setting", :default => 0
   end
 
 end

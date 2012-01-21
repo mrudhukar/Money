@@ -1,4 +1,10 @@
 class User < ActiveRecord::Base
+  module Notification
+    IMMEDIATE = 0
+    DAILY = 1
+    WEEKLY = 2
+  end
+
   acts_as_authentic
 
   validates :name, :presence => true
@@ -16,5 +22,13 @@ class User < ActiveRecord::Base
 
   def display_name
     self.nick_name || self.name
+  end
+
+  def notify_immediately?
+    self.notification_setting == Notification::IMMEDIATE
+  end
+
+  def self.send_periodic_updates
+    #TODO periodic_update
   end
 end

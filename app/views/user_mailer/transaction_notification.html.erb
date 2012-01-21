@@ -1,0 +1,40 @@
+<% label = @common_item.payment? ? "Payment" : "Transaction" %>
+<h3> <%= "#{@common_item.group.name} - #{label} details" %> </h3>
+
+<% label_styles = "style = 'float: left; width: 210px; color: #888;'" %>
+<% div_styles = "style = 'margin-bottom: 10px;'" %>
+
+<div>
+  <div <%= div_styles %>>
+    <span <%= label_styles %>><%= label %> Name: </span>
+    <span><%= @common_item.name %></span><br/>
+  </div>
+  <div <%= div_styles %>>
+    <span <%= label_styles %>><%= label %> made by: </span>
+    <span style="float:left;"><%= @common_item.user.name %></span><br/>
+  </div>
+  <div <%= div_styles %>>
+    <span <%= label_styles %>>Total <%= label %> value: </span>
+    <span style="float:left;">Rs.<%= @common_item.cost %></span><br/>
+  </div>
+  <div <%= div_styles %>>
+    <span <%= label_styles %>> Your share: </span>
+    <span style="float:left;"><%= @item_amount %></span><br/>
+  </div>
+  <div <%= div_styles %>>
+    <span <%= label_styles %>><%= label %> made on: </span>
+    <span style="float:left;"><%= @common_item.transaction_date.strftime('%B, %d %Y') %></span><br/>
+  </div>
+</div>
+<br></br>
+
+<div style="<%= UserMailer::LINK_BUTTON %>">
+  <%= link_to "View all transactions", group_common_items_url(@common_item.group), :style => UserMailer::LINK_TEXT %>
+</div>
+
+<br></br>
+
+<div style="">
+  <span style="color:#777">Thank you,</span><br/>
+  <span style="color:#777">Money Tracker Team</span>
+</div>

@@ -259,3 +259,10 @@ vendor
   External libraries that the application depends on. Also includes the plugins
   subdirectory. If the app has frozen rails, those gems also go here, under
   vendor/rails/. This directory is in the load path.
+
+TODO:
+1. Allow end users to give the setting for notification
+2. Daily digest
+3. Exception notifier
+4. Invites
+5. Pusher

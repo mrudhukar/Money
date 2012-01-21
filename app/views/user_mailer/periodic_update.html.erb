@@ -1,0 +1,44 @@
+<h2> Money Tracker Updates, <span style="color:#999; font-size:80%;"> <%= Date.today.to_date.to_s(:long) %></span>
+</h2>
+
+<% unless @updated_learnings.blank? %>
+  <h3 style="border-top:1px solid #444; border-bottom:1px solid #444; padding: 5px; background-color:#f1f1f1; margin-bottom:20px;">
+    Recent activity in Learnings you have shared or in your Queue
+  </h3>
+
+  <% @updated_learnings.each do |learning| %>
+    <%= div_for learning do %>
+      <p class='title'><%= link_to truncate(learning.title, :length => 160), learning_url(learning), :style => "font-weight:bold;font-size:110%;" %></p>
+      <p style="color: #777;"> <%= summary_of_learning_updates(learning, :for_user => @user, :since => @since) %></p>
+      <hr/>
+    <% end %>
+  <% end %>
+<% end %>
+
+<br/>
+<% unless @new_learnings.blank? %>
+  <h3 style="border-top:2px solid #333; border-bottom:2px solid #333; background-color:#f1f1f1; padding: 5px;">
+    <%= pluralize(@new_learnings.count, 'New Learning') %>
+  </h3>
+  <% @new_learnings.each do |learning| %>
+    <%= div_for learning do %>
+      <p class='title'>
+        <%= link_to truncate(learning.title, :length => 160),
+          learning_url(learning),
+          :style => "font-weight:bold;font-size:110%;" %>
+      </p>
+      <% unless learning.description.blank? %>
+        <p class='description' style="color: #777;">
+          <%= markdown(truncate(learning.description, :length => 300),
+            :url => linkaction_learning_url(learning)) %></p>
+      <% end %>
+      <p class='author'>
+        by <%= h learning.user.name %>
+        <% unless learning.comments.blank? %>
+          , <%= link_to " #{pluralize(learning.comments.count, 'comment')}", learning_url(learning, :anchor => 'comments') %>
+        <% end %>
+      </p>
+    <% end %>
+    <hr/><br/>
+  <% end %>
+<% end %>

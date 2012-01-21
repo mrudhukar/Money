@@ -27,8 +27,9 @@ gem 'will_paginate', '~> 3.0.0'
 
 group :development, :test do
 #  This has an issue with heroku
-#  gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'therubyracer'
+  gem "letter_opener"
 end
 
 group :test do
