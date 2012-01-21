@@ -3,11 +3,16 @@ class User < ActiveRecord::Base
     IMMEDIATE = 0
     DAILY = 1
     WEEKLY = 2
+
+    def self.all
+      [IMMEDIATE, DAILY, WEEKLY]
+    end
   end
 
   acts_as_authentic
 
   validates :name, :presence => true
+  validates :notification_setting, :presence => true, :inclusion => {:in => Notification.all}
 
   has_many :group_users, :dependent => :destroy
   has_many :groups, :through => :group_users
