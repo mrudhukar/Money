@@ -1,44 +1,49 @@
-<h2> Money Tracker Updates, <span style="color:#999; font-size:80%;"> <%= Date.today.to_date.to_s(:long) %></span>
+<h2 style="margin-bottom: 30px;"> Money Tracker Updates, <span style="color:#999; font-size:80%;"> <%= Date.today.to_date.to_s(:long) %></span>
 </h2>
 
-<% unless @updated_learnings.blank? %>
-  <h3 style="border-top:1px solid #444; border-bottom:1px solid #444; padding: 5px; background-color:#f1f1f1; margin-bottom:20px;">
-    Recent activity in Learnings you have shared or in your Queue
-  </h3>
+<% label_styles = "style = 'float: left; width: 120px; color: #888;'" %>
+<% div_styles = "style = 'margin-bottom: 10px;'" %>
 
-  <% @updated_learnings.each do |learning| %>
-    <%= div_for learning do %>
-      <p class='title'><%= link_to truncate(learning.title, :length => 160), learning_url(learning), :style => "font-weight:bold;font-size:110%;" %></p>
-      <p style="color: #777;"> <%= summary_of_learning_updates(learning, :for_user => @user, :since => @since) %></p>
-      <hr/>
-    <% end %>
+<% @grouped_common_items.each_pair do |group, items| %>
+  <% content = "" %>
+  <% if (balance = group.get_group_user(@user).balance) != 0 %>
+    <% content =  balance > 0 ? "<span style='color:red'>Pay Rs. #{balance}</span>" : "<span style='color:green'>Get Rs. #{-balance}</span>" %>
   <% end %>
-<% end %>
 
-<br/>
-<% unless @new_learnings.blank? %>
-  <h3 style="border-top:2px solid #333; border-bottom:2px solid #333; background-color:#f1f1f1; padding: 5px;">
-    <%= pluralize(@new_learnings.count, 'New Learning') %>
+  <h3 style="border-top:1px solid #444; border-bottom:1px solid #444; padding: 5px; background-color:#f1f1f1; margin-bottom:20px;">
+    <%= group.name %> Transactions <%= content.html_safe %>
   </h3>
-  <% @new_learnings.each do |learning| %>
-    <%= div_for learning do %>
-      <p class='title'>
-        <%= link_to truncate(learning.title, :length => 160),
-          learning_url(learning),
-          :style => "font-weight:bold;font-size:110%;" %>
-      </p>
-      <% unless learning.description.blank? %>
-        <p class='description' style="color: #777;">
-          <%= markdown(truncate(learning.description, :length => 300),
-            :url => linkaction_learning_url(learning)) %></p>
-      <% end %>
-      <p class='author'>
-        by <%= h learning.user.name %>
-        <% unless learning.comments.blank? %>
-          , <%= link_to " #{pluralize(learning.comments.count, 'comment')}", learning_url(learning, :anchor => 'comments') %>
-        <% end %>
-      </p>
-    <% end %>
+
+  <% items.each do |item| %>
+    <% label = item.payment? ? "Payment" : "Transaction" %>
+    <div>
+      <div <%= div_styles %>>
+        <span <%= label_styles %>><%= label %>: </span>
+        <span><%= item.name %></span>
+        <span style="color:#999"> by </span>
+        <span><%= item.user.name %></span>
+        <span style="color:#999;font-size: 0.9em;"> on </span>
+        <span style="color:#999"><%= item.transaction_date.strftime('%B, %d %Y') %></span>
+        <br/>
+      </div>
+      <div <%= div_styles %>>
+        <span <%= label_styles %>>Total amount: </span>
+        <span>Rs. <%= item.cost %></span>
+        <span style="color:#999;font-size: 0.9em;"> of which <%= item.payment? ? "you received" : "your share is" %> </span>
+        <span>Rs. <%= @items[item][0].default_amount %></span><br/>
+      </div>
+    </div>
     <hr/><br/>
   <% end %>
+  <br/>
+
+  <div style="<%= UserMailer::LINK_BUTTON %>">
+    <%= link_to "View all transactions", group_common_items_url(group), :style => UserMailer::LINK_TEXT %>
+  </div>
+  <br/><br/>
 <% end %>
+
+<div style="">
+  <span style="color:#777">Thank you,</span><br/>
+  <span style="color:#777">Money Tracker Team</span>
+</div>

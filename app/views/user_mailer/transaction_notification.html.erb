@@ -15,7 +15,7 @@
   </div>
   <div <%= div_styles %>>
     <span <%= label_styles %>>Total <%= label %> value: </span>
-    <span style="float:left;">Rs.<%= @common_item.cost %></span><br/>
+    <span style="float:left;">Rs. <%= @common_item.cost %></span><br/>
   </div>
   <div <%= div_styles %>>
     <span <%= label_styles %>> Your share: </span>
@@ -27,6 +27,15 @@
   </div>
 </div>
 <br></br>
+
+<% if (balance = @common_item.group.get_group_user(@user).balance) != 0 %>
+  <div>
+    <b>
+      <%= balance > 0 ? "<span style='color:red'>You need to pay Rs. #{balance}</span>".html_safe : "<span style='color:green'>You need to get Rs. #{-balance}</span>".html_safe %>
+    </b>
+  </div>
+  <br/>
+<% end %>
 
 <div style="<%= UserMailer::LINK_BUTTON %>">
   <%= link_to "View all transactions", group_common_items_url(@common_item.group), :style => UserMailer::LINK_TEXT %>

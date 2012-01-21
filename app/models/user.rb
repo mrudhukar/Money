@@ -23,6 +23,12 @@ class User < ActiveRecord::Base
   has_many :admin_groups, :class_name => "Group"
   has_many :items
 
+  scope :periodic_notified, where(:notification_setting => [Notification::DAILY, Notification::WEEKLY])
+
+  before_validation(:on => :create) do
+    self.last_notified_at = Time.now
+  end
+
   attr_protected :app_admin
 
   def display_name
@@ -34,6 +40,15 @@ class User < ActiveRecord::Base
   end
 
   def self.send_periodic_updates
-    #TODO periodic_update
+    User.periodic_notified.where("last_notified_at < ?", 1.day.ago).all.each do |user|
+      items = user.items.where(:created_at => user.last_notified_at..Time.now).include(:commont_item => [:group_user])
+      non_ownered_items = items.reject{|item| item.common_item.user == user}
+
+      next if non_ownered_items.empty?
+
+      grouped_items = non_ownered_items.collect(&:common_item).group_by(&:group)
+      UserMailer.periodic_update(user, grouped_items, non_ownered_items).deliver
+      user.update_attribute(:last_notified_at, Time.now)
+    end
   end
 end

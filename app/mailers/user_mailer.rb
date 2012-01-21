@@ -4,8 +4,11 @@ class UserMailer < ActionMailer::Base
   LINK_TEXT = "border-left:1px solid #5678BE;border-right:1px solid #5678BE;border-top:4px solid #5678BE;border-bottom:4px solid #5678BE;font-weight:bold;font-size:13.2px;font-family:serif;text-align:center;text-decoration:none;color:#FFFFFF;display:block;"
   default :from => "Money Tracker <moneytracker@moneytracker.heroku.com>"
 
-  def periodic_update(user)
+  def periodic_update(user, grouped_common_items, items)
     headers['X-Mailgun-Tag'] = 'User Periodic Update'
+    @user = user
+    @grouped_common_items = grouped_common_items
+    @items = items.group_by(&:common_item)
     mail(:to => user.email, :subject => "Money Tracker Updates,  #{Date.today.to_s(:long)}")
   end
 
