@@ -16,9 +16,9 @@ class UserMailer < ActionMailer::Base
     @payer = common_item.user
     @item_amount = display_amount(user, common_item)
     if common_item.payment?
-      subject = "#{@common_item.group.name} - Payment recorded by #{@payer.name}"
+      subject = "#{@common_item.group.name} - New payment recorded by #{@payer.name}"
     else
-      subject = "#{@common_item.group.name} - Transaction recorded by #{@payer.name}"
+      subject = "#{@common_item.group.name} - New transaction recorded by #{@payer.name}"
     end
     mail(:to => user.email, :subject => subject)
   end
