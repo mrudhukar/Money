@@ -61,7 +61,7 @@ Money::Application.configure do
   config.middleware.use ExceptionNotifier,
     :email_prefix => "[Moneytracker Exception] ",
     :sender_address => %{"Exception Notifier" <moneytracker@moneytracker.heroku.com>},
-    :exception_recipients => %w{mrudhu@gmail.com}
+    :exception_recipients => ENV['ADMIN_EMAIL']
 
   # Enable threaded mode
   # config.threadsafe!
