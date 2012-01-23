@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
 
   def self.send_periodic_updates
     User.periodic_notified.where("last_notified_at < ?", 1.day.ago).all.each do |user|
-      items = user.items.where(:created_at => user.last_notified_at..Time.now).include(:commont_item => [:group_user])
+      items = user.items.where(:created_at => user.last_notified_at..Time.now).includes(:commont_item => [:group_user])
       non_ownered_items = items.reject{|item| item.common_item.user == user}
 
       next if non_ownered_items.empty?
