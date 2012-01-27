@@ -15,6 +15,7 @@ end
 desc "This task is called by the Heroku cron add-on"
 task :cron => :environment do
   puts "Sending email updates..."
-  exception_notify {User.send_periodic_updates }
+  exception_notify {User.send_daily_updates }
+  exception_notify {User.send_weekly_updates }
   puts "done."
 end

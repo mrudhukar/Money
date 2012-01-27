@@ -3,9 +3,10 @@ class User < ActiveRecord::Base
     IMMEDIATE = 0
     DAILY = 1
     WEEKLY = 2
+    NONE = 3
 
     def self.all
-      [IMMEDIATE, DAILY, WEEKLY]
+      [IMMEDIATE, DAILY, WEEKLY, NONE]
     end
   end
 
@@ -23,7 +24,8 @@ class User < ActiveRecord::Base
   has_many :admin_groups, :class_name => "Group"
   has_many :items
 
-  scope :periodic_notified, where(:notification_setting => [Notification::DAILY, Notification::WEEKLY])
+  scope :daily_notified, where(:notification_setting => Notification::DAILY)
+  scope :weekly_notified, where(:notification_setting => Notification::WEEKLY)
 
   before_validation(:on => :create) do
     self.last_notified_at = Time.now
@@ -39,16 +41,27 @@ class User < ActiveRecord::Base
     self.notification_setting == Notification::IMMEDIATE
   end
 
-  def self.send_periodic_updates
-    User.periodic_notified.where("last_notified_at < ?", 1.day.ago).all.each do |user|
-      items = user.items.where(:created_at => user.last_notified_at..Time.now).includes(:common_item => [:group_user])
-      non_ownered_items = items.reject{|item| item.common_item.user == user}
+  def send_periodic_updates(period)
+    items = self.items.where(:created_at => self.last_notified_at..Time.now).includes(:common_item => [:group_user])
+    non_ownered_items = items.reject{|item| item.common_item.user == self}
 
-      next if non_ownered_items.empty?
-
+    unless non_ownered_items.empty?
       grouped_items = non_ownered_items.collect(&:common_item).group_by(&:group)
-      UserMailer.periodic_update(user, grouped_items, non_ownered_items).deliver
-      user.update_attribute(:last_notified_at, Time.now)
+      UserMailer.periodic_update(self, grouped_items, non_ownered_items, period).deliver
+      self.update_attribute(:last_notified_at, Time.now)
     end
   end
+
+  def self.send_daily_updates
+    User.daily_notified.where("last_notified_at < ?", 1.day.ago).all.each do |user|
+      user.send_periodic_updates("daily")
+    end
+  end
+
+  def self.send_weekly_updates
+    User.weekly_notified.where("last_notified_at < ?", 1.week.ago).all.each do |user|
+      user.send_periodic_updates("weekly")
+    end
+  end
+
 end

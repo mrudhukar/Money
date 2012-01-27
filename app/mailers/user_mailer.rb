@@ -2,10 +2,11 @@ class UserMailer < ActionMailer::Base
   include CommonItemsHelper
   LINK_BUTTON = "background-color:#5678BE;width:170px;border:1px solid #365FB6;margin-top: 15px;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px"
   LINK_TEXT = "border-left:1px solid #5678BE;border-right:1px solid #5678BE;border-top:4px solid #5678BE;border-bottom:4px solid #5678BE;font-weight:bold;font-size:13.2px;font-family:serif;text-align:center;text-decoration:none;color:#FFFFFF;display:block;"
-  default :from => "Money Tracker <moneytracker@moneytracker.heroku.com>"
+  default :from => "Money Tracker <notifier@moneytracker.heroku.com>"
 
-  def periodic_update(user, grouped_common_items, items)
-    headers['X-Mailgun-Tag'] = 'User Periodic Update'
+  def periodic_update(user, grouped_common_items, items, period)
+    headers['X-Mailgun-Tag'] = "User Periodic Update - #{period}"
+    headers['X-Campaign-Id'] = "User Periodic Update - #{period}"
     @user = user
     @grouped_common_items = grouped_common_items
     @items = items.group_by(&:common_item)
@@ -14,6 +15,7 @@ class UserMailer < ActionMailer::Base
 
   def transaction_notification(user, common_item)
     headers['X-Mailgun-Tag'] = 'User Transaction Notification'
+    headers['X-Campaign-Id'] = 'User Transaction Notification'
     @user = user
     @common_item = common_item
     @payer = common_item.user
