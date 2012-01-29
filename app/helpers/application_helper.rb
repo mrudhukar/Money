@@ -7,7 +7,7 @@ module ApplicationHelper
 
   def render_flash
     message = flash[:notice] || flash[:error] || flash[:alert]
-    key = FLASHMAP[flash.keys[0]]
+    key = FLASHMAP[(flash.keys & [:notice, :error, :alert])[0]]
     if message
       content_tag(:div, :class => "alert-message #{key}") do
         link_to("x", "#", :class => "close") + content_tag(:p, message)

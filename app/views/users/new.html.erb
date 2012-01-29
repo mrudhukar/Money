@@ -17,6 +17,12 @@
       </div>
 
     <% end %>
+    <div class="clearfix">
+      <label>Word Verification</label>
+      <div class="input captcha">
+        <%= recaptcha_tags :display => {:theme => "clean", :tabindex => 0} %>
+      </div>
+    </div>
     <%= f.actions do %>
       <%= f.submit "Submit" %>
     <% end %>

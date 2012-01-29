@@ -29,4 +29,7 @@ Money::Application.configure do
   config.assets.debug = true
 
   config.action_mailer.delivery_method = :letter_opener
+
+  ENV['RECAPTCHA_PUBLIC_KEY'] = '6LcK78wSAAAAANjwtjdiNsHx-EC-F1CvZ5JR79Rp'
+  ENV['RECAPTCHA_PRIVATE_KEY'] = '6LcK78wSAAAAAAS26uDX2ewPvdYXb7GO50vh3Wcn'
 end

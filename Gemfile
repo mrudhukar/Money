@@ -43,3 +43,4 @@ group :production do
 end
 
 gem 'exception_notification', :require => 'exception_notifier'
+gem "recaptcha", :require => "recaptcha/rails"

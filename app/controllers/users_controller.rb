@@ -20,9 +20,10 @@ class UsersController < ApplicationController
     handle_group_invite and return if params[:group_code]
 
     @user = User.new(params[:user])
-    if @user.save
+    if verify_recaptcha && @user.save
       redirect_to user_url(@user)
     else
+      flash.now[:error] = "Please re-enter the words from the image again!"
       @tab = TabConstants::REGISTER
       render :action => "new"
     end
@@ -56,9 +57,10 @@ class UsersController < ApplicationController
     handle_invalid_code
 
     @user = User.new(params[:user])
-    if @user.save
+    if verify_recaptcha && @user.save
       create_group_user_and_redirect
     else
+      flash.now[:error] = "Please re-enter the words from the image again!"
       render :action => "new"
     end
   end
