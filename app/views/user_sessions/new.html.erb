@@ -11,6 +11,8 @@
         <li>
           <label>
             <%= check_box_tag "user_session[remember_me]", @user_session.remember_me %> <span>Remember me</span>
+            <%= separator %>
+            <%= link_to "Forgot password?", forgot_password_path, :id => "forgot_password_link" %>
           </label>
         </li>
       </ul>

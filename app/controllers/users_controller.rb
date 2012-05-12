@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_filter :require_login, :only => [:new, :create]
+  skip_before_filter :require_login, :only => [:new, :create, :reset_password, :reset_password_submit]
   before_filter :load_user, :only => [:edit, :update, :show]
   allow :exec => :authorize_user, :only => [:edit, :update]
 
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(params[:user])
-      flash[:notice] = "Successfull updated your profile"
+      flash[:notice] = "Successful updated your profile"
       redirect_to user_path(@user)
     else
       render :action => "edit"
@@ -48,6 +48,21 @@ class UsersController < ApplicationController
 
   def index
 
+  end
+
+  def reset_password
+    @user = User.find_using_perishable_token(params[:reset_password_code], 1.week) || (raise Exception)
+  end
+
+  def reset_password_submit
+    @user = User.find_using_perishable_token(params[:reset_password_code], 1.week) || (raise Exception)
+    if @user.update_attributes(params[:user])
+      flash[:notice] = "Successfully reset password."
+      redirect_to @user
+    else
+      flash[:notice] = "There was a problem resetting your password."
+      render :action => :reset_password
+    end
   end
 
   private

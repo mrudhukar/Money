@@ -64,4 +64,9 @@ class User < ActiveRecord::Base
     end
   end
 
+  def send_forgot_password!
+    reset_perishable_token!
+    UserMailer.forgot_password(self).deliver
+  end  
+
 end

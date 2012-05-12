@@ -1,3 +1,5 @@
+# encoding: utf-8
+# The above line is serious dark magic. Please do not remove it. Home page will be screwed :)
 module ApplicationHelper
   FLASHMAP = {
     :notice => "success",
@@ -44,5 +46,9 @@ module ApplicationHelper
       string += "<br>"
     end
     return string
+  end
+
+  def separator
+    content_tag(:span, "·", {:class => "separator"})
   end
 end
