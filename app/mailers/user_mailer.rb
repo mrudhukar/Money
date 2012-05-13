@@ -32,12 +32,11 @@ class UserMailer < ActionMailer::Base
     headers['X-Mailgun-Tag'] = 'User Transaction Notification'
     headers['X-Campaign-Id'] = 'User Transaction Notification'
     
+    @user = user
     @reset_password_link = reset_password_url(user.perishable_token)
     
     mail(:to => user.email,
-         :subject => "Password Reset",
-         :from => from,
-         :fail_to => from
+         :subject => "Reset Password Instructions",
     ) do |format|
       format.html
     end

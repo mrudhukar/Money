@@ -57,10 +57,10 @@ class UsersController < ApplicationController
   def reset_password_submit
     @user = User.find_using_perishable_token(params[:reset_password_code], 1.week) || (raise Exception)
     if @user.update_attributes(params[:user])
-      flash[:notice] = "Successfully reset password."
+      flash.now[:notice] = "Successfully reset password."
       redirect_to @user
     else
-      flash[:notice] = "There was a problem resetting your password."
+      flash.now[:notice] = "There was a problem resetting your password."
       render :action => :reset_password
     end
   end
