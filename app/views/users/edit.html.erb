@@ -6,8 +6,8 @@
     <%= f.text_field :name %>
     <%= f.text_field :nick_name %>
     <%= f.text_field :email %>
-    <%= f.password_field :password %>
-    <%= f.password_field :password_confirmation %>
+    <%= f.password_field :password, :validate => false %>
+    <%= f.password_field :password_confirmation, :validate => false %>
     <%= f.select :notification_setting, notification_options(@user), {}, :title => "Email Notification" %>
   <%= f.actions do %>
     <%= f.submit "Save" %>
