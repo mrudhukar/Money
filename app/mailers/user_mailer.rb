@@ -36,10 +36,17 @@ class UserMailer < ActionMailer::Base
     @reset_password_link = reset_password_url(user.perishable_token)
     
     mail(:to => user.email,
-         :subject => "Reset Password Instructions",
-    ) do |format|
+         :subject => "Reset Password Instructions") do |format|
       format.html
     end
   end  
+
+  def support_mail(support)
+    headers['X-Mailgun-Tag'] = 'Support Mail'
+    headers['X-Campaign-Id'] = 'Support Mail'
+
+    @support = support
+    mail(:to => ADMIN_EMAIL, :subject => "[MONEY TRACKER] Support Request")
+  end
 
 end

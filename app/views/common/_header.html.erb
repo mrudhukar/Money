@@ -25,6 +25,8 @@
               <ul class="dropdown-menu">
                 <li><%= link_to "Edit Profile", edit_user_path(current_user) %></li>
                 <li class="divider"></li>
+                <li><%= link_to "Support", new_support_path, :remote => true, :disable_with => "please wait.." %></li>
+                <li class="divider"></li>
                 <li><%= link_to "Logout", logout_path %></li>
               </ul>
             </li>

@@ -1,0 +1,18 @@
+<div id="new_support_mail" class="modal hide fade in">
+  <div class="modal-header">
+    <a href="#" class="close">×</a>
+    <h3> Support </h3>
+  </div>
+    <%= form_for @support, :remote => true, :validate => true do |f| %>
+      <div class="modal-body">
+        <%= f.text_field :topic %>
+        <%= f.text_area :description, :rows => 5 %>
+      </div>
+
+      <div class="modal-footer actions">
+        <%= f.submit "Submit" %>
+        <%= f.cancel_path "Close", "#", :class => "cancel" %>
+      </div>      
+    <% end %>
+  </div>
+</div>

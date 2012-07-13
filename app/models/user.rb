@@ -24,6 +24,8 @@ class User < ActiveRecord::Base
   has_many :admin_groups, :class_name => "Group"
   has_many :items
 
+  has_many :supports
+
   scope :daily_notified, where(:notification_setting => Notification::DAILY)
   scope :weekly_notified, where(:notification_setting => Notification::WEEKLY)
 

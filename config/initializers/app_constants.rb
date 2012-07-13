@@ -4,3 +4,5 @@ TRANSACTION_TYPE_OPTIONS_ARRAY = [
   ["Record a payment made", CommonItem::Type::PAYMENT],
 #  ["Record a payment received", CommonItem::Type::RECORD_PAYMENT]
 ]
+
+ADMIN_EMAIL = 'arunkumar@chronus.com'

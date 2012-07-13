@@ -45,3 +45,7 @@ function openPopup(id){
     $(this).remove();
   });
 }
+
+function closePopup(id){
+  $(id).modal('hide');
+}

@@ -37,6 +37,8 @@ Money::Application.routes.draw do
    resources :group_users
   end
 
+  resources :supports
+
   # Sample resource route with more complex sub-resources
   #   resources :products do
   #     resources :comments
