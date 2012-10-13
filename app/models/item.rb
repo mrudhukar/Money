@@ -24,7 +24,9 @@ class Item < ActiveRecord::Base
 
   def decrement_balance
     self.user.update_attribute(:net_balance, self.user.net_balance - self.default_amount)
-    self.group_user.update_attribute(:balance, self.group_user.balance - self.default_amount)
+    if self.group_user
+      self.group_user.update_attribute(:balance, self.group_user.balance - self.default_amount)
+    end
   end
 
 end
